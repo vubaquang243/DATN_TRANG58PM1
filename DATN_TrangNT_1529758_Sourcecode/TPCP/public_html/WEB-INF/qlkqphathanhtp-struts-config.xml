@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="QLyKQPhatHanhForm"
+               type="com.seatech.tp.kqphathanh.form.QLyKQPhatHanhForm"/>
+  </form-beans>
+  <action-mappings>
+  <!--quanly-->
+     <action parameter="list" name="QLyKQPhatHanhForm"
+            path="/ListKQphathanhAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/pages/kqphathanh/listKQPhatHanh.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QLyKQPhatHanhForm"
+            path="/SearchKQphathanhTwAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/pages/kqphathanh/listKQPhatHanh.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+      <action parameter="add" name="QLyKQPhatHanhForm"
+            path="/PreUploadKQPhatHanhAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/pages/kqphathanh/addKQPhatHanh.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="addExc" name="QLyKQPhatHanhForm"
+            path="/AddExeKQPhathanhAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/ListKQphathanhAction.do"/>
+       <forward name="failure" path="/pages/kqphathanh/editKQPhatHanh.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="update" name="QLyKQPhatHanhForm"
+            path="/UpdateKQPhathanhAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/pages/kqphathanh/editKQPhatHanh.jsp"/>
+      <forward name="failure" path="/ListKQphathanhAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="updateExc" name="QLyKQPhatHanhForm"
+            path="/UpdateExeKQPhathanhAction" scope="request"
+             type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+     <forward name="success" path="/ListKQphathanhAction.do"/>
+      <forward name="failure" path="/AddExeKQPhathanhAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!--phe duyet -->
+     <action parameter="list" name="QLyKQPhatHanhForm"
+            path="/ListKQphathanhPDAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhPDAction">
+      <forward name="success" path="/pages/kqphathanh/listKQPhatHanh_PheDuyet.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QLyKQPhatHanhForm"
+            path="/SearchKQphathanhPDTwAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhPDAction">
+      <forward name="success" path="/pages/kqphathanh/listKQPhatHanh_PheDuyet.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="viewUpload" name="QLyKQPhatHanhForm"
+            path="/ViewUploadKQPhatHanhAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/pages/kqphathanh/editKQPhatHanh.jsp"/>
+      <forward name="failure" path="/PreUploadKQPhatHanhAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+      <action parameter="view" name="QLyKQPhatHanhForm"
+              path="/viewKQPhatHanhAction" scope="request"
+              type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/pages/kqphathanh/viewKQPhatHanh.jsp"/>
+      <forward name="failure" path="/pages/kqphathanh/listKQPhatHanh.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+      <action parameter="view" name="QLyKQPhatHanhForm"
+        path="/viewKQPhatHanhPDAction" scope="request"
+        type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/pages/kqphathanh/viewKQPhatHanh_PheDuyet.jsp"/>
+      <forward name="failure" path="/pages/kqphathanh/viewKQPhatHanh_PheDuyet.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+     <action parameter="trinh" name="QLyKQPhatHanhForm"
+            path="/TrinhKQPhatHanhAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/ListKQphathanhAction.do"/>
+      <forward name="failure" path="/pages/kqphathanh/viewKQPhatHanh.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+      <action parameter="pheduyet" name="QLyKQPhatHanhForm"
+            path="/PheDuyetKQPhatHanhAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/ListKQphathanhPDAction.do"/>
+      <forward name="failure" path="/pages/kqphathanh/viewKQPhatHanh_PheDuyet.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+      <action parameter="tuchoi" name="QLyKQPhatHanhForm"
+            path="/TuChoiKQPhatHanhAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/ListKQphathanhPDAction.do"/>
+      <forward name="failure" path="/pages/kqphathanh/viewKQPhatHanh_PheDuyet.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+        <action parameter="delete" name="QLyKQPhatHanhForm"
+            path="/DeleteKQPhatHanhAction" scope="request"
+               type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+      <forward name="success" path="/ListKQphathanhAction.do"/>
+      <forward name="failure" path="/ListKQphathanhAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="executeAction" name="QLyKQPhatHanhForm"
+            path="/AdderrKQPhatHanhAction" scope="request"
+            type="com.seatech.tp.kqphathanh.action.QLyKQPhatHanhAction">
+       <forward name="success" path="/pages/kqphathanh/addKQPhatHanh.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+  </action-mappings>
+  <controller nocache="true"
+              processorClass="org.apache.struts.action.RequestProcessor"
+              contentType="text/html;charset=UTF-8" locale="false"/>
+</struts-config>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="BCThanhToanTpcpForm"
+               type="com.seatech.tp.bcthanhtoantpcp.form.BCThanhToanTpcpForm"/>
+  </form-beans>
+  <action-mappings>
+    <action parameter="list" name="BCThanhToanTpcpForm"
+            path="/ListBCThanhToanTPCPAction" scope="request"
+            type="com.seatech.tp.bcthanhtoantpcp.action.BCThanhToanTpcpAction">
+      <forward name="success" path="/pages/bcthanhtoantpcp/listBCThanhToanTPCP.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="BCThanhToanTpcpForm"
+            path="/SearchBCThanhToanTPCPAction" scope="request"
+            type="com.seatech.tp.bcthanhtoantpcp.action.BCThanhToanTpcpAction">
+      <forward name="success" path="/pages/bcthanhtoantpcp/listBCThanhToanTPCP.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+   <action parameter="print" name="BCThanhToanTpcpForm"
+            path="/PrintBCThanhToanTPCPAction" scope="request"
+            type="com.seatech.tp.bcthanhtoantpcp.action.BCThanhToanTpcpAction">
+      <forward name="failure" path="/pages/bcthanhtoantpcp/listBCThanhToanTPCP.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+  </action-mappings>
+  <controller nocache="true"
+              processorClass="org.apache.struts.action.RequestProcessor"
+              contentType="text/html;charset=UTF-8" locale="false"/>
+</struts-config>

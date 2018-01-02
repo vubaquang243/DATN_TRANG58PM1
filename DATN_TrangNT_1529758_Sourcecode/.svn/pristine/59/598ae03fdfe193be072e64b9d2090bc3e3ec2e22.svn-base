@@ -1,0 +1,144 @@
+.container.padding0 {
+    width: 936px;
+}
+
+ul #css3menu1 {
+    min-height: 20px;
+}
+
+.table-bordered th {
+    text-align: center;
+    white-space: normal;
+    vertical-align: middle !important;
+}
+
+body {
+    font: 12px Helvetica, arial, sans-serif
+}
+
+h1, h2, p {
+    margin: 10px 0
+}
+
+.hidden {
+    visibility: hidden
+}
+
+.color_red {
+    color: Red;
+}
+
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.row-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.col-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+}
+
+.middle {
+    vertical-align: middle;
+}
+
+.row-height.panel.panel-default {
+    height: 100%;
+    min-height: 100%;
+}
+
+.table-bordered>tbody>tr.header>td {
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+text-left {
+    text-align: left !important;
+}
+
+.trDanhSachChan input {
+    width: 100%;
+}
+
+.panel-body.auto-scoll {
+    
+}
+
+.panel-body.auto-scoll table {
+    max-width: none;
+    width: auto;
+}
+
+.panel-body.auto-scoll table th {
+    white-space: nowrap;
+}
+@media(min-width:768px) {
+    .form-horizontal.form-group.control-label {
+        padding-top: 5px;
+    }
+    .form-horizontal.control-label {
+        padding-top: 0px;
+    }
+}
+input, select, textarea{
+  width: 100%;
+}
+.trSelect{
+  background-color: #ffffb5;
+}
+table.table.table-bordered tr td {
+    vertical-align: middle;
+}
+.btn-group.bootstrap-select.disabled.form-control {
+    border: solid 1px #ccc;
+}
+.btn-group.bootstrap-select.disabled.form-control .btn {
+    border: none;
+}
+.red{
+  color: Red;
+}
+
+.table.table-bordered tbody tr td {
+    border-left: solid 1px #ddd !important;
+}
+.bootstrap-select .btn{
+  font-size: 14px !important;
+  padding: 2px 10px;
+}
+.form-control.selectpicker{
+  z-index: -999;
+}
+.ui-datepicker{
+  z-index: 9999 !important;
+}
+.btn-group.bootstrap-select.form-control{
+  max-width: 300px;    
+}
+.btn-group.bootstrap-select.form-control .btn.dropdown-toggle.btn-default{
+  padding-right: 25px;
+}
+input.number{
+    text-align: right; 
+}
+input.numberflat{
+    text-align: right;
+    border: none;
+    padding: 2px 10px;
+}

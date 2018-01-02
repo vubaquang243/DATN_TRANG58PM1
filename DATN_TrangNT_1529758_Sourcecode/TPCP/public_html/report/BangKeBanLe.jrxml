@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BangKeBanLe" pageWidth="700" pageHeight="700" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea3c2fc8-6e2b-4620-bd72-fdf04bb8cc6e">
+	<property name="ireport.zoom" value="1.0263162364614142"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="78"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<style name="style1">
+		<box rightPadding="4"/>
+	</style>
+	<parameter name="pNamNS" class="java.lang.String"/>
+	<parameter name="pNgayTT" class="java.lang.String"/>
+	<parameter name="pThangTT" class="java.lang.String"/>
+	<parameter name="pNamTT" class="java.lang.String"/>
+	<parameter name="pCanCu" class="java.lang.String"/>
+	<parameter name="pDonviNhanTien" class="java.lang.String"/>
+	<parameter name="pTKSo" class="java.lang.String"/>
+	<parameter name="pNgayChuyen" class="java.lang.String"/>
+	<parameter name="pNganHang" class="java.lang.String"/>
+	<parameter name="pTongTienChu" class="java.lang.String"/>
+	<parameter name="dot_ph" class="java.lang.String"/>
+	<parameter name="ma_tpcp" class="java.lang.String"/>
+	<parameter name="noi_cap" class="java.lang.String"/>
+	<parameter name="ky_han" class="java.lang.String"/>
+	<parameter name="ngay_dt" class="java.lang.String"/>
+	<parameter name="kl_trung_thau" class="java.lang.String"/>
+	<parameter name="ngay_ph" class="java.lang.String"/>
+	<parameter name="ls_trung_thau" class="java.lang.String"/>
+	<parameter name="ls_danh_nghia" class="java.lang.String"/>
+	<parameter name="ly_do_tu_choi" class="java.lang.String"/>
+	<parameter name="ngay_tt_tien_mua" class="java.lang.String"/>
+	<parameter name="guid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="loai_tien" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT  MA_TRAI_CHU as MA_NGUOI_SO_HUU,  TEN_TRAI_CHU as TEN_NGUOI_SO_HUU,KL_TRUNG_THAU ,  SO_TIEN_PHAI_TT TIEN_TT_MUA,  to_char(NGAY_CHUYEN_TIEN,'dd/MM/yyyy') NGAY_CHUYEN_TIEN,  GHI_CHU
+FROM TP_BKE_CHUYEN_TIEN_CTIET WHERE  BKE_CHUYEN_TIEN_ID =$P{guid}]]>
+	</queryString>
+	<field name="MA_NGUOI_SO_HUU" class="java.lang.String"/>
+	<field name="TEN_NGUOI_SO_HUU" class="java.lang.String"/>
+	<field name="KL_TRUNG_THAU" class="java.math.BigDecimal"/>
+	<field name="TIEN_TT_MUA" class="java.math.BigDecimal"/>
+	<field name="NGAY_CHUYEN_TIEN" class="java.lang.String"/>
+	<field name="GHI_CHU" class="java.lang.String"/>
+	<field name="SO_TIEN_DA_TT" class="java.math.BigDecimal"/>
+	<variable name="stt" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{stt}.intValue() + 1]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="SumTienThanhToan" class="java.math.BigDecimal" resetType="Group" resetGroup="SumGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{TIEN_TT_MUA}]]></variableExpression>
+	</variable>
+	<variable name="SumKl" class="java.math.BigDecimal" resetType="Group" resetGroup="SumGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{KL_TRUNG_THAU}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_da_tt" class="java.math.BigDecimal" resetType="Group" resetGroup="SumGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{SO_TIEN_DA_TT}]]></variableExpression>
+	</variable>
+	<group name="SumGroup">
+		<groupFooter>
+			<band height="61">
+				<staticText>
+					<reportElement x="0" y="0" width="221" height="18" uuid="a2d14a3f-2622-4f2e-8c81-fa425ba8e8f5"/>
+					<box topPadding="0">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tổng cộng  ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="style1" x="221" y="0" width="140" height="18" uuid="e68eb4ae-6f05-4136-914a-8a308d29783d"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($V{SumKl})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement style="style1" x="362" y="0" width="156" height="18" uuid="eb18bc2d-f087-4da4-a5d8-b3fb13bd8f67"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($V{SumTienThanhToan})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="31" y="41" width="208" height="20" uuid="e1c482ff-ccbc-419e-a39e-3fb3d0c1ee81"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[CỤC QUẢN LÝ NGÂN QUỸ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="341" y="41" width="294" height="20" uuid="9cd71252-02b7-406f-a898-b5433f45cedb"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[XÁC NHẬN CỦA SỞ GIAO DỊCH KBNN]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="style1" x="518" y="0" width="142" height="18" uuid="696e0870-e226-4065-93d9-e793965888f7"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($V{sum_tien_da_tt})]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="214" splitType="Stretch">
+			<staticText>
+				<reportElement x="77" y="49" width="568" height="33" uuid="004f62a5-ffd9-4529-8a15-b1cae9e0ed5b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[BẢNG KÊ CÁC ĐƠN VỊ CHUYỂN TIỀN MUA TPCP THEO PHƯƠNG THỨC BÁN LẺ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="10" width="132" height="20" uuid="e286bde7-d8f9-4b58-b5aa-9284e9a7750f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KHO BẠC NHÀ NƯỚC]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="119" width="350" height="20" uuid="f663e5d1-a4e0-4262-8d56-ca4713f41eeb"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ngày phát hành : "+$P{ngay_ph}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="362" y="119" width="283" height="20" uuid="051f3042-b2df-44c8-9a58-be3a5ed9c659"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Mã trái phiếu : "+$P{ma_tpcp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="362" y="139" width="283" height="20" uuid="d1f4f409-ae65-4746-a950-ffa3426e0e48"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Kỳ hạn : "+$P{ky_han}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="139" width="350" height="20" uuid="35f1755d-2c1c-407b-8713-67ce7eaae185"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ngày phát hành bổ sung: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="179" width="283" height="20" uuid="5940390c-596f-4d9a-a17b-f8e393ee9be8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Lãi suất danh nghĩa : "+$P{ls_danh_nghia} + " %"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="179" width="349" height="20" uuid="9826c9b5-b535-40f6-ad24-bd91ecf844ce"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ngày thanh toán tiền mua trái phiếu : "+$P{ngay_tt_tien_mua}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="159" width="283" height="20" uuid="24d3030b-38b5-4687-8cbd-c35d06172a1f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Lãi suất phát hành : "+$P{ls_danh_nghia} + " %"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="159" width="349" height="20" uuid="82ff2153-b87e-4058-b1b6-e06c7ae967cf"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tên trái phiếu: "+($P{noi_cap}.equals("VSD")?"Trái phiếu chính phủ":"Trái phiếu kho bạc")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="341" y="10" width="304" height="20" uuid="1ebffb12-960e-4900-ac29-4840a2e38ba2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Hà Nội, ngày           tháng           năm]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="31" height="30" uuid="03c52d6a-4211-485c-adc7-e42980fce9b7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="0" width="190" height="30" uuid="cbbb1bec-a104-48a9-9d2a-44bee9a13ad3"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Chủ sở hữu trái phiếu]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="221" y="0" width="140" height="30" uuid="1628d9fb-9fee-4825-b269-667d27945c11"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Giá trị trái phiếu mua \n"
++ ($P{loai_tien}.equals("VND")?"(đồng)":"(USD)")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="361" y="0" width="157" height="30" uuid="7f50f040-05bf-4e3a-8c1f-6818071ec989"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Số tiền phải thanh toán \n"
++ ($P{loai_tien}.equals("VND")?"(đồng)":"(USD)")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="518" y="0" width="142" height="30" uuid="dade5946-7b44-4dc2-8723-cdff9c3e4134"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Số tiền đã thanh toán \n"
++ ($P{loai_tien}.equals("VND")?"(đồng)":"(USD)")]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="31" height="16" uuid="02d9b439-3893-4017-8369-b18a22940ec2"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{stt}.intValue() + 1]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="31" y="0" width="190" height="16" uuid="bceb49c0-9c84-4d44-984c-bfe2d1e19b51"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="arial.ttf" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  " + $F{TEN_NGUOI_SO_HUU}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="221" y="0" width="140" height="16" uuid="ddc5a3f6-7f8d-4b6c-bde8-f1b46cfe764b"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{KL_TRUNG_THAU})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="362" y="0" width="156" height="16" uuid="d2737804-02b0-41c3-a468-49466afe6462"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{TIEN_TT_MUA})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="518" y="0" width="142" height="16" uuid="d03d5ad5-f8e5-4db8-8cde-c04cec0418be"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{SO_TIEN_DA_TT})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50"/>
+	</columnFooter>
+</jasperReport>

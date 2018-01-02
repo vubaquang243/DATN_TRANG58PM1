@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="TienTeForm" type="com.seatech.tp.tiente.form.TienTeForm"/>
+  </form-beans>
+  <action-mappings>
+    <!--Thanh toán lãi, g?c trái phi?u có lãi su?t danh ngh?a c? ??nh phát hành b?ng VND-->
+    <action parameter="list" name="TienTeForm"
+            path="/ListTienTeAction" scope="request"
+            type="com.seatech.tp.tiente.action.TienTeAction">
+      <forward name="success" path="/pages/tiente/listtiente.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+  </action-mappings>
+  <controller nocache="true"
+              processorClass="org.apache.struts.action.RequestProcessor"
+              contentType="text/html;charset=UTF-8" locale="false"/>
+</struts-config>

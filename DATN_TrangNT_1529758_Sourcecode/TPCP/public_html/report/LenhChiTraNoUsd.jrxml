@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LenhChiTraNoVnd" pageWidth="840" pageHeight="1300" whenNoDataType="AllSectionsNoDetail" columnWidth="800" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea3c2fc8-6e2b-4620-bd72-fdf04bb8cc6e">
+	<property name="ireport.zoom" value="1.0263162364614162"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="128"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<parameter name="pNamNS" class="java.lang.String"/>
+	<parameter name="pNgayTT" class="java.lang.String"/>
+	<parameter name="pThangTT" class="java.lang.String"/>
+	<parameter name="pNamTT" class="java.lang.String"/>
+	<parameter name="pCanCu" class="java.lang.String"/>
+	<parameter name="pDonviNhanTien" class="java.lang.String"/>
+	<parameter name="pTKSo" class="java.lang.String"/>
+	<parameter name="pNgayChuyen" class="java.lang.String"/>
+	<parameter name="pNganHang" class="java.lang.String"/>
+	<parameter name="pTongTienChu" class="java.lang.String"/>
+	<parameter name="pTongTienChuUsd" class="java.lang.String"/>
+	<parameter name="pTyGia" class="java.lang.String"/>
+	<parameter name="pLoaiTien" class="java.lang.String"/>
+	<parameter name="pSoLenh" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+T.CHUONG, T.CTMT, T.GUID,
+   T.ID_LENH_CHI_TRA_NO, T.NDKT, T.NGANH_KT,
+   T.NGUON, T.NOI_DUNG, T.SO_TIEN_NGTE,
+   T.SO_TIEN_VND,A.LOAI_TT
+FROM TPCP_OWNER.TP_LENH_CHI_TRA_NO_CTIET T INNER JOIN TP_TSO_HACH_TOAN A ON A.NGANH_KT =T.NGANH_KT WHERE T.ID_LENH_CHI_TRA_NO =35]]>
+	</queryString>
+	<field name="CHUONG" class="java.lang.String"/>
+	<field name="CTMT" class="java.lang.String"/>
+	<field name="NDKT" class="java.lang.String"/>
+	<field name="NGANH_KT" class="java.lang.String"/>
+	<field name="NGUON" class="java.lang.String"/>
+	<field name="NOI_DUNG" class="java.lang.String"/>
+	<field name="SO_TIEN_NGTE" class="java.math.BigDecimal"/>
+	<field name="SO_TIEN_VND" class="java.math.BigDecimal"/>
+	<field name="LOAI_TT" class="java.lang.String"/>
+	<variable name="stt" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{stt}.intValue() + 1]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="variable1" class="java.math.BigDecimal" resetType="Group" resetGroup="SumGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{SO_TIEN_VND}]]></variableExpression>
+	</variable>
+	<variable name="TONG_TIEN_USD" class="java.math.BigDecimal" resetType="Group" resetGroup="SumGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{SO_TIEN_NGTE}]]></variableExpression>
+	</variable>
+	<group name="SumGroup">
+		<groupFooter>
+			<band height="18">
+				<staticText>
+					<reportElement x="0" y="0" width="440" height="18" uuid="a2d14a3f-2622-4f2e-8c81-fa425ba8e8f5"/>
+					<box topPadding="0">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tổng cộng  ]]></text>
+				</staticText>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="440" y="0" width="121" height="18" uuid="e68eb4ae-6f05-4136-914a-8a308d29783d"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONG_TIEN_USD}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="561" y="0" width="187" height="18" uuid="38276271-50a8-4cb1-bca8-af6d75d97920"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="351" splitType="Stretch">
+			<staticText>
+				<reportElement x="119" y="123" width="508" height="33" uuid="004f62a5-ffd9-4529-8a15-b1cae9e0ed5b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[LỆNH CHI TRẢ NỢ TRONG NƯỚC BẰNG NGOẠI TỆ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="10" width="132" height="20" uuid="e286bde7-d8f9-4b58-b5aa-9284e9a7750f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[BỘ TÀI CHÍNH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="30" width="228" height="40" uuid="9044d64c-f2e3-4651-aa74-bcba13ce2c08"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isItalic="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Theo TT số  77/2017/TT-BTC ngày 28/7/2017 của Bộ Tài Chính)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="30" width="132" height="20" uuid="12492af2-6766-4b56-ad2a-4c23e6fa8f38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KHO BẠC NHÀ NƯỚC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="10" width="294" height="20" uuid="5cb6d967-cce7-4154-afa3-7f81a228a0ce"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="30" width="294" height="20" uuid="78fd24c7-16cd-4de8-9b5e-ec8045f3f093"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isUnderline="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Độc lập -Tự do - Hạnh phúc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="10" width="228" height="20" uuid="c4752f91-cb6a-4dd6-ad59-bbe4bee4cd11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mẫu số C2-14b/NS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="176" width="574" height="39" uuid="f663e5d1-a4e0-4262-8d56-ca4713f41eeb"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Căn cứ kết quả phát hành TPCP đấu thầu, bảo lãnh, phí phát hành : "+$P{pCanCu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-1" y="215" width="575" height="20" uuid="f48b724e-b1d5-4aed-a406-17fead73cdae"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Đến hạn thanh toán, ngày "+$P{pNgayTT}+" tháng "+$P{pThangTT}+" năm "+$P{pNamTT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-1" y="235" width="575" height="20" uuid="cb8827e1-7a07-473c-a0ef-6babaa6283ef"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Yêu cầu Sở giao dịch - Kho bạc Nhà nước  chi trả  Gốc, lãi, phí phát hành TPCP từ ngân sách cấp 1"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-1" y="255" width="575" height="20" uuid="4e520ed5-62ef-4c5d-a7d3-e26a2c75d3d9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Đơn vị nhận tiền: "+$P{pDonviNhanTien}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="275" width="259" height="20" uuid="84dec591-f89a-40ae-9b94-f50f4e36cd92"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tài khoản số: "+$P{pTKSo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="259" y="275" width="315" height="20" uuid="54be0b4f-3c60-48bf-a0b3-9a57eab6513d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tại NH (KBNN): "+$P{pNganHang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-1" y="315" width="574" height="20" uuid="e5cd48f6-dc51-452c-b14a-0fc6d195f9a7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ngày chuyển tiền: "+$P{pNgayChuyen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="589" y="215" width="159" height="20" uuid="79adf898-d529-4cf4-b05b-25136631fddd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[  Nợ TK: ............................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="589" y="235" width="159" height="20" uuid="7ab0fb18-b23e-430a-a205-c0ca1f4157e9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[  Nợ TK: ............................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="589" y="255" width="159" height="20" uuid="db8f4b44-b154-432f-80d8-76344537446d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[  Có TK: ............................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="589" y="275" width="159" height="20" uuid="44ec6da4-4799-4b3a-8c0f-822d280e9d5a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[  Có TK: ............................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="589" y="295" width="159" height="20" uuid="3c3996ea-992f-4754-abe3-5be9283872c9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[  Mã ĐBHC: .......................................]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="-1" y="295" width="260" height="20" uuid="daf05c5b-2465-43e5-afe2-e02c2652a5a5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Loại ngoại tệ: "+$P{pLoaiTien}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="259" y="295" width="315" height="20" uuid="c1d2046b-182b-4338-aea1-81d8a68b6ea7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tỷ giá quy đổi: "+$P{pTyGia}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="589" y="334" width="159" height="1" uuid="38da2534-7005-429e-9316-be718558dcd0"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="588" y="184" width="1" height="151" uuid="bb6d01b6-201f-4c54-a750-f54e2aa37aa6"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="748" y="184" width="1" height="151" uuid="2f624b25-65b8-477c-ab58-ed06c983fb68"/>
+			</line>
+			<staticText>
+				<reportElement x="589" y="186" width="159" height="28" uuid="f59471a0-80fc-4452-a7a9-c5e2e2e48404"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[PHẦN KBNN GHI]]></text>
+			</staticText>
+			<line>
+				<reportElement x="589" y="214" width="159" height="1" uuid="712efb69-37f1-47bb-bb66-d30553527e3f"/>
+			</line>
+			<line>
+				<reportElement x="589" y="184" width="159" height="1" uuid="80cbae0a-084f-4479-b2cf-3d158835151e"/>
+			</line>
+			<textField>
+				<reportElement x="502" y="70" width="228" height="17" uuid="3cdf69a6-c5df-448e-adc4-61ffbeced33f"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Số: " + $P{pSoLenh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="502" y="87" width="228" height="17" uuid="9bfc8585-aa82-406e-b1b7-399ab861a747"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Năm ngân sách: " + $P{pNamNS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="31" height="40" uuid="03c52d6a-4211-485c-adc7-e42980fce9b7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="0" width="109" height="40" uuid="cbbb1bec-a104-48a9-9d2a-44bee9a13ad3"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Nội dung thanh toán]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="0" width="60" height="40" uuid="0cebff71-1523-4493-8edc-673d816bd254"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mã NDKT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="60" height="40" uuid="abdc1d69-540d-49ef-bc61-d70d2a94604b"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mã chương]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="60" height="40" uuid="886dbe44-543a-495b-9a63-94fe0d2f7416"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mã nguồn NSNN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="0" width="60" height="40" uuid="21d8d2c9-6652-4c9c-80c7-5a6c26762f8e"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mã
+ngành KT
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="308" height="20" uuid="66cce1c6-7f02-44fa-9343-6014244a2f5f"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số tiền]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="0" width="60" height="40" uuid="8b65cd9a-7be8-417b-b062-8b8c975db6b6"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mã CTMT, DA và HTCT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="21" width="121" height="19" uuid="00729d5c-1672-49db-b88f-c25bebe97377"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Nguyên tệ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="561" y="21" width="187" height="19" uuid="788bf453-d45c-4553-b294-a81b463cb18d"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[VND]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="31" height="16" uuid="02d9b439-3893-4017-8369-b18a22940ec2"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{stt}.intValue() + 1]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="31" y="0" width="109" height="16" uuid="bceb49c0-9c84-4d44-984c-bfe2d1e19b51"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="arial.ttf" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOI_DUNG}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="0" width="60" height="16" uuid="ddc5a3f6-7f8d-4b6c-bde8-f1b46cfe764b"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NDKT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="260" y="0" width="60" height="16" uuid="2ce0aaea-cb91-4554-bc41-3700d09ba7cb"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NGANH_KT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="0" width="60" height="16" uuid="d2737804-02b0-41c3-a468-49466afe6462"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHUONG}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="320" y="0" width="60" height="16" uuid="bec1af79-4109-434e-9ad5-f94340da1cec"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CTMT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="380" y="0" width="60" height="16" uuid="3ed0afaa-7eef-4c12-98fe-f34d5d533c34"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NGUON}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="561" y="0" width="187" height="16" uuid="afe3042c-70db-41dc-bc31-da0040cc136f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SO_TIEN_VND}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="440" y="0" width="121" height="16" uuid="3b318e29-a021-49e0-8de8-5aaa4c672df0"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SO_TIEN_NGTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="600" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="59" width="294" height="20" uuid="e1c482ff-ccbc-419e-a39e-3fb3d0c1ee81"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Cục trưởng Cục Quản lý ngân quỹ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="59" width="294" height="20" uuid="85fe5b46-1545-4e03-8329-42e51440850e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Ngày.........tháng ........năm.............]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="79" width="294" height="20" uuid="9cd71252-02b7-406f-a898-b5433f45cedb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng giám đốc KBNN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-2" y="199" width="750" height="1" backcolor="#000000" uuid="c5ad5b5e-f6e2-40bf-a61a-1e6f6abb332a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="200" width="294" height="20" uuid="af487661-c32e-4c90-82bc-060599adf83d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Sở Giao dịch KBNN ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="254" width="163" height="20" uuid="7bff7796-0fa5-4c6f-a3f6-834785ade7fd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Kế toán ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="254" width="163" height="20" uuid="1e4b0708-6bfb-40be-9a87-ceaae06e7bf9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Kế toán trưởng ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="254" width="294" height="20" uuid="89c64806-89f3-47a6-b4a2-0ccdd95e68c6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Ngày.........tháng ........năm.............]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="274" width="294" height="20" uuid="01a7e737-c0e4-428d-9eb3-4810e72761d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Giám đốc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-1" y="406" width="750" height="1" backcolor="#000000" uuid="2f41f421-19c4-439d-8cc4-21791860d89d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="384" y="407" width="1" height="160" backcolor="#000000" uuid="2bfc12d9-9ce0-4829-b7fc-43c20899a2b6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="407" width="384" height="20" uuid="fd96d76e-329c-4c14-9f56-f55583c75945"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[NGÂN HÀNG A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="427" width="384" height="20" uuid="3533fce0-50e4-4ac8-8f10-1aeccd28a390"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Ngày.........tháng ........năm.............]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="447" width="106" height="20" uuid="487a0341-58bf-4e1f-9293-d3e929b32c06"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Kế toán]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="447" width="136" height="20" uuid="ed8d2b77-711e-4d0e-991b-06671ad915a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Kế toán trưởng             ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="447" width="142" height="20" uuid="809e0f05-ab4f-4ff6-acab-a35b18378d2d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Giám đốc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="491" y="447" width="136" height="20" uuid="b7a881a4-f6cc-499a-8851-732c8e684405"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Kế toán trưởng             ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="447" width="106" height="20" uuid="20a5a9a7-b36f-4d4e-87b6-035d037c9557"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Kế toán]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="427" width="363" height="20" uuid="286854f6-ce48-4db1-acb0-f2fe0682838c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Ngày.........tháng ........năm.............]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="627" y="447" width="121" height="20" uuid="7900bffd-92df-4dd2-bc54-5f0022140076"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Giám đốc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="362" width="294" height="20" uuid="ae8ad052-d519-467d-8b3c-3a81327c1707"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[NGÂN HÀNG, KBNN B]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="5" width="748" height="20" uuid="bf477000-9f0c-4c9d-bb2d-c686327b439a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tổng số tiền ghi bằng chữ (nguyên tệ): "+$P{pTongTienChu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="25" width="747" height="20" uuid="0bbbf480-80aa-4d83-a8a0-1c48e6e118bf"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tổng số tiền ghi bằng chữ (VND): "+$P{pTongTienChuUsd}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

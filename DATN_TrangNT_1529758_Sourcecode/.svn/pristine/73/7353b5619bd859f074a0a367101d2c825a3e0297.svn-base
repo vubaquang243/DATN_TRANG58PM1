@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BCSLHuyDongVon_subreport" language="groovy" pageWidth="842" pageHeight="555" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="adf20d5d-a357-4a14-9d2f-db4608976c26">
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1">
+		<box leftPadding="7" rightPadding="7"/>
+	</style>
+	<parameter name="pTuNgay" class="java.lang.String"/>
+	<parameter name="pDenNgay" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select ph.*,nvl(tra_goc,0) tra_goc,
+nvl(tra_lai,0) tra_lai from (
+select LOAI_TIEN, nvl(sum(du_no_dau_ky),0) du_no_dau_ky,
+nvl(sum(phat_hanh_trong_ky),0) phat_hanh_trong_ky
+from (
+SELECT
+  'USD' LOAI_TIEN,
+  SUM(
+  CASE
+    WHEN TRUNC(b.NGAY_DAO_HAN) >= TRUNC(to_date($P{pTuNgay},'dd/MM/yyyy'))
+    AND TRUNC(b.NGAY_PH)        < TRUNC(to_date($P{pDenNgay},'DD/MM/YYYY'))
+    THEN a.TONG_KL_TRUNG_THAU
+    ELSE 0
+  END) du_no_dau_ky,
+  SUM(
+  CASE
+    WHEN TRUNC(b.NGAY_PH) >= TRUNC(to_date($P{pTuNgay},'dd/MM/yyyy'))
+    AND TRUNC(b.NGAY_PH)   < TRUNC(to_date($P{pDenNgay},'dd/MM/yyyy'))
+    THEN a.TONG_KL_TRUNG_THAU
+    ELSE 0
+  END) phat_hanh_trong_ky
+FROM TP_KQPH a,
+  TP_THONG_TIN_DAU_THAU b
+WHERE a.DOT_DT = b.DOT_DAU_THAU and a.trang_thai = '02'
+AND a.MA_TPCP  = b.MA_TPCP and b.LOAI_TIEN = 'USD'
+UNION ALL
+SELECT
+  'USD' LOAI_TIEN,
+  SUM(
+  CASE
+    WHEN TRUNC(bl.NGAY_DAO_HAN) >= TRUNC(to_date($P{pTuNgay},'dd/MM/yyyy'))
+    AND TRUNC(bl.NGAY_PH)        < TRUNC(to_date($P{pDenNgay},'DD/MM/YYYY'))
+    THEN ct.SO_TIEN_TT
+    ELSE 0
+  END) du_no_dau_ky,
+  SUM(
+  CASE
+    WHEN TRUNC(bl.NGAY_PH) >= TRUNC(to_date($P{pTuNgay},'dd/MM/yyyy'))
+    AND TRUNC(bl.NGAY_PH)   < TRUNC(to_date($P{pDenNgay},'dd/MM/yyyy'))
+    THEN ct.SO_TIEN_TT
+    ELSE 0
+  END) phat_hanh_trong_ky
+FROM TP_KQPH_BAN_LE bl
+INNER JOIN  TP_KQPH_BAN_LE_CTIET ct
+ON bl.GUID        = ct.KQPH_BAN_LE_ID
+LEFT JOIN  TP_DM_DVI_SO_HUU dv
+ON ct.MA_DVI_SO_HUU = dv.MA_CHU_SO_HUU
+where bl.LOAI_TIEN = 'USD' and bl.trang_thai = '02') GROUP BY LOAI_TIEN) ph
+LEFT JOIN
+  (SELECT 'USD' LOAI_TIEN,
+    SUM(
+    CASE
+      WHEN ct.TT_TYPE = 'GOC'
+      THEN ct.SO_TIEN_NGTE
+      ELSE 0
+    END) tra_goc,
+    SUM(
+    CASE
+      WHEN ct.TT_TYPE = 'LAI'
+      THEN ct.SO_TIEN_NGTE
+      ELSE 0
+    END) tra_lai
+  FROM TP_LENH_CHI_TRA_NO l
+  INNER JOIN TP_LENH_CHI_TRA_NO_CTIET ct
+  ON l.GUID                 = ct.ID_LENH_CHI_TRA_NO
+  WHERE l.TRANG_THAI        = '02'
+  AND l.LOAI_TIEN           = 'USD'
+  AND TRUNC(l.NGAY_CHUYEN) >= TRUNC(to_date($P{pTuNgay},'DD/MM/YYYY'))
+  AND TRUNC(l.NGAY_CHUYEN)  < TRUNC(to_date($P{pDenNgay},'DD/MM/YYYY'))
+  ) ln ON ph.LOAI_TIEN = ph.LOAI_TIEN]]>
+	</queryString>
+	<field name="LOAI_TIEN" class="java.lang.String"/>
+	<field name="DU_NO_DAU_KY" class="java.math.BigDecimal"/>
+	<field name="PHAT_HANH_TRONG_KY" class="java.math.BigDecimal"/>
+	<field name="TRA_GOC" class="java.math.BigDecimal"/>
+	<field name="TRA_LAI" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement style="style1" x="203" y="0" width="110" height="25" uuid="0e4eeb05-0226-4d26-bb86-3d8e0a8a8ec3"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{DU_NO_DAU_KY})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="313" y="0" width="110" height="25" uuid="3ef63819-4c89-4509-ae03-040d163f3a5a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{PHAT_HANH_TRONG_KY})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="423" y="0" width="90" height="25" uuid="737e4ee8-5091-4d40-bddb-0765ce8260fe"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{TRA_GOC})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="513" y="0" width="90" height="25" uuid="b2fe1923-bce9-4ce5-a69f-876085d9470d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{TRA_LAI})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="693" y="0" width="109" height="25" uuid="912ff01e-7f4a-419d-9649-0d31e319a12b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{DU_NO_DAU_KY}.subtract( $F{PHAT_HANH_TRONG_KY}.add( $F{TRA_GOC} )))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="603" y="0" width="90" height="25" uuid="a26c6f17-8f9a-41fd-8ac5-50e10301c60e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{TRA_GOC}.add($F{TRA_LAI}))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="18" y="0" width="185" height="25" uuid="0d97271d-a2b3-4c44-a0c5-ce27f3ad8783"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Trái phiếu Chính phủ bằng ngoại tệ"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="18" height="25" uuid="d8cff0dd-0c3e-417e-a9bf-520a8134a982"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["II"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

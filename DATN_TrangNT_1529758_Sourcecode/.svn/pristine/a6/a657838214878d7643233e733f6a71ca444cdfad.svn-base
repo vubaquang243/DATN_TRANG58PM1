@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ThongTinDauThauAddTHem" pageWidth="900" pageHeight="1100" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea3c2fc8-6e2b-4620-bd72-fdf04bb8cc6e">
+	<property name="ireport.zoom" value="0.9330147604194674"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="89"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<parameter name="pKhoi_luong_them_chu" class="java.lang.String"/>
+	<parameter name="pLs_danh_nghia" class="java.lang.String"/>
+	<parameter name="pNgay_tt_tien_mua" class="java.lang.String"/>
+	<parameter name="pNgay_dao_han" class="java.lang.String"/>
+	<parameter name="pMenh_gia_chu" class="java.lang.String"/>
+	<parameter name="pDot_dau_thau" class="java.lang.String"/>
+	<parameter name="pKy_han" class="java.lang.String"/>
+	<parameter name="pKhoi_luong_them" class="java.lang.String"/>
+	<parameter name="pSo_tk_nhan" class="java.lang.String"/>
+	<parameter name="pNgay_ph" class="java.lang.String"/>
+	<parameter name="pMenh_gia" class="java.lang.String"/>
+	<parameter name="pNgay_to_chuc_ph" class="java.lang.String"/>
+	<parameter name="pMa_tpcp" class="java.lang.String"/>
+	<parameter name="pHinh_thuc_dt" class="java.lang.String"/>
+	<parameter name="pSo_lan_tt" class="java.lang.String"/>
+	<parameter name="pNgay_tt_lai_lan_1" class="java.lang.String"/>
+	<parameter name="pNgay_tt_lai_lan_2" class="java.lang.String"/>
+	<parameter name="pKieu_tra_lai" class="java.lang.String"/>
+	<parameter name="pNam" class="java.lang.String"/>
+	<parameter name="pDonvitien" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<variable name="stt" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{stt}.intValue() + 1]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="751" splitType="Stretch">
+			<textField>
+				<reportElement x="384" y="333" width="381" height="20" uuid="74182cae-b2fa-4812-a3fc-d68de38ceaaa"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pKy_han}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="10" width="128" height="20" uuid="2fa1e8a5-6404-46eb-a866-275efad15441"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[BỘ TÀI CHÍNH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="503" width="204" height="20" uuid="e33cfa31-c290-4db1-925a-f598c75fbb46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[PHÓ TỔNG GIÁM ĐỐC]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="383" y="312" width="444" height="20" uuid="c00e4c56-6359-45b5-90cd-c2a5db550dae"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pKhoi_luong_them}+" "+$P{pDonvitien}+ "(  "+ $P{pKhoi_luong_them_chu}+" )"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="34" y="312" width="349" height="20" uuid="d03d745b-274e-47ce-90fa-a834f7f897a7"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Khối lượng gọi thầu thêm:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="292" width="348" height="20" uuid="ec45ff03-08e0-4915-a016-20f86b43d07c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Mã trái phiếu:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="10" width="506" height="20" uuid="df8fab44-2335-407a-9a77-c520129c3b17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="51" width="506" height="20" uuid="c4dac12e-96f0-4e9e-80b3-3fd2589012ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" isUnderline="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Hà Nội , ngày     tháng    năm  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="50" width="156" height="21" uuid="2f2044ea-28cd-41f1-ba55-68e9a49730ae"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số :...../ KBNN-QLNQ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="35" y="223" width="756" height="56" uuid="343454fa-cbf2-4d11-ab63-ba358f5aa68d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["     Thực hiện nhiệm vụ huy động vốn năm "+ $P{pNam}+", căn cứ kết quả đấu thầu đợt "+$P{pDot_dau_thau}+", tổ chức ngày "+$P{pNgay_to_chuc_ph}+", Kho bạc Nhà nước đề nghị Sở Giao dịch Chứng khoán Hà Nội và Trung tâm Lưu ký Chứng khoán Việt Nam phối hợp tổ chức đấu thầu phát hành thêm trái phiếu Chính phủ cho đợt "+ $P{pDot_dau_thau}+", cụ thể:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="223" y="198" width="264" height="22" uuid="946e6353-0a2f-4144-b460-9aecd462f126"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[- Trung tâm Lưu ký Chứng khoán Việt Nam ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="384" y="373" width="381" height="20" uuid="f03fd5f1-1cb6-4bb7-a8d5-e2ac44afac77"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Từ 13h30 đến trước 15h00 ngày "+$P{pNgay_to_chuc_ph}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="487" y="483" width="204" height="20" uuid="67998a4c-c350-4625-9438-d624b2a47a72"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KT. TỔNG GIÁM ĐỐC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="483" width="128" height="20" uuid="943f9e79-872c-420a-9e74-1019bcec6f61"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Nơi nhận:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="30" width="506" height="20" uuid="88a16d42-7d32-4354-a33b-a2f3b9d87f09"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Độc lập -Tự do - Hạnh phúc]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="23" y="503" width="216" height="20" uuid="71e842de-0f41-4604-90c1-b14304fc6ae9"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Như trên:        "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="30" width="156" height="20" uuid="2bdb36d6-66b9-4c4e-94fa-68d89e7926d6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KHO BẠC NHÀ NƯỚC]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="122" width="157" height="20" uuid="08facf8d-c239-43d4-9936-8830737fed0a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" đợt "+$P{pDot_dau_thau}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="223" y="175" width="264" height="23" uuid="ed6da158-b64a-4cf1-b000-d38052fe8f99"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[- Sở Giao dịch Chứng khoán Hà Nội]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="21" y="422" width="756" height="41" uuid="25c466d0-4656-4db3-b4e6-2ea72cfc21af"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["         Đề nghị Sở Giao dịch Chứng khoán Hà Nội và Trung tâm Lưu ký Chứng khoán Việt Nam tổ chức đấu thầu và niêm yết khối lượng, đăng ký lưu ký trái phiếu trúng thầu theo đúng quy định hiện hành./."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="333" width="349" height="20" uuid="ea2e14d8-97f4-4b08-a512-e1a24a8fb574"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Kỳ hạn trái phiếu:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="151" y="142" width="72" height="33" uuid="6859cc50-d193-4c18-9429-0b2743e18405"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Kính gửi : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="71" width="156" height="24" uuid="ad0d8d60-e080-4bb5-8c5f-34979c09a282"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[V/v đấu thầu thêm trái phiếu ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="23" y="523" width="216" height="20" uuid="2d7e5b5f-37f7-4093-8700-4cd2dcb7b316"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Lưu: VT, QLNQ (4 bản).    "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="373" width="349" height="20" uuid="8b525508-f256-4ed9-ad2f-2964a4ff6c1e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Thời gian đăng ký mua thêm :"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="292" width="381" height="20" uuid="88daaef3-4bc0-44d8-9bb5-449e55205264"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pMa_tpcp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="353" width="349" height="20" uuid="09ed0c7e-26a0-4ed0-bd4b-1274653b9d15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Lãi suất danh nghĩa:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="353" width="381" height="20" uuid="a06659f3-90ec-4c3d-91bf-f05c5d913ab4"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pLs_danh_nghia}+"%/năm"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="95" width="156" height="24" uuid="849614b3-cb4f-4786-931c-06c9f1412189"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Chính phủ cho ]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

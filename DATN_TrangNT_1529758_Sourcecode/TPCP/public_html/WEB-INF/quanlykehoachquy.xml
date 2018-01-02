@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="QuanLyKeHoachQuyForm"
+               type="com.seatech.tp.quanlykehoachquy.form.QuanLyKeHoachQuyForm"/>
+  </form-beans>
+  <action-mappings>
+    
+    <action parameter="list" name="QuanLyKeHoachQuyForm"
+            path="/ListQuanLyKeHoachQuyAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/listKeHoach.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QuanLyKeHoachQuyForm"
+            path="/SearchQuanLyKeHoachQuyAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/listKeHoach.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+    
+    
+    <!--Phe duyet-->
+    <action parameter="list" name="QuanLyKeHoachQuyForm"
+            path="/ListQuanLyKeHoachQuyPDAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyPheDuyetKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/listKeHoachApprove.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QuanLyKeHoachQuyForm"
+            path="/SearchQuanLyKeHoachQuyPDAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyPheDuyetKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/listKeHoachApprove.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+    
+    <!--End phe duyet-->
+    <!-- them moi tp ke hoach-->
+    <action parameter="add" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachQuyAddAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/addKeHoach.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="addExc" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachQuyExecuteAddAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/ListQuanLyKeHoachQuyAction.do"/>
+      <forward name="failure" path="/QuanLyKeHoachQuyAddAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!-- delete tp ke hoach-->
+    <action parameter="delete" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachDeleteAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/ListQuanLyKeHoachQuyAction.do"/>
+      <forward name="failure" path="/ListQuanLyKeHoachQuyAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!-- update tp ke hoach-->
+    <action parameter="update" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachQuyUpdateAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/addKeHoach.jsp"/>
+      <forward name="failure" path="/QuanLyKeHoachAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!--thay the-->
+    <action parameter="update" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachQuyChangeAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/reKeHoach.jsp"/>
+      <forward name="failure" path="/QuanLyKeHoachAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="addExc" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachQuyChangeExcAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/ListQuanLyKeHoachQuyAction.do"/>
+      <forward name="failure" path="/QuanLyKeHoachQuyAddChangeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="add" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachQuyAddChangeAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/reKeHoach.jsp"/>
+      <forward name="failure" path="/QuanLyKeHoachQuyAddChangeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!---->
+    <action parameter="updateExc" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachQuyUpdateExecuteAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/ListQuanLyKeHoachQuyAction.do"/>
+      <forward name="failure" path="/QuanLyKeHoachQuyUpdateAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!-- view tp ke hoach-->
+    <action parameter="view" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachQuyViewAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/viewKeHoach.jsp"/>
+      <forward name="failure" path="/ListQuanLyKeHoachAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="view" name="QuanLyKeHoachQuyForm"
+            path="/QuanLyKeHoachQuyPDViewAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/pages/quanlykehoachquy/viewKeHoachApprove.jsp"/>
+      <forward name="failure" path="/ListQuanLyKeHoachAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!--Print KH quý-->
+    <action parameter="print" path="/PrintKQQuanLyKHQuyAction" 
+            name="QuanLyKeHoachQuyForm" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction" >
+            <forward name="failure" path="/pages/quanlykehoachquy/viewBCQLKHQuy.jsp"/>
+            <forward name="error" path="//pages/main/errorQuyen.jsp"/>
+    </action>
+     <action parameter="trinh" name="QuanLyKeHoachQuyForm"
+            path="/TrinhKQQuanLyKHQuyAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/ListQuanLyKeHoachQuyAction.do"/>
+      <forward name="failure" path="/ListQuanLyKeHoachQuyAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="pheduyet" name="QuanLyKeHoachQuyForm"
+            path="/PheDuyetKHQuyAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/ListQuanLyKeHoachQuyPDAction.do"/>
+      <forward name="failure" path="/ListQuanLyKeHoachQuyPDAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="tuchoi" name="QuanLyKeHoachQuyForm"
+            path="/TuChoiKHQuyAction" scope="request"
+            type="com.seatech.tp.quanlykehoachquy.action.QuanLyKeHoachQuyAction">
+      <forward name="success" path="/ListQuanLyKeHoachQuyPDAction.do"/>
+      <forward name="failure" path="/ListQuanLyKeHoachQuyPDAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+  </action-mappings>
+  <controller nocache="true"
+              processorClass="org.apache.struts.action.RequestProcessor"
+              contentType="text/html;charset=UTF-8" locale="false"/>
+</struts-config>

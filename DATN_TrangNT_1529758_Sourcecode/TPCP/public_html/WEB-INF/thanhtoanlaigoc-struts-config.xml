@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="TTLaiGocVndForm"
+               type="com.seatech.tp.ttlaigoc.form.TTLaiGocForm"/>
+    <form-bean name="LenhTraNoForm"
+               type="com.seatech.tp.qlyLenhTraNo.form.LenhTraNoForm"/>
+    <form-bean name="TTLaiGocForm"
+               type="com.seatech.tp.ttlaigoc.form.TTLaiGocForm"/>
+  </form-beans>
+  <action-mappings>
+    <!--Thanh toán lãi, g?c trái phi?u có lãi su?t danh ngh?a c? ??nh phát hành b?ng VND-->
+    <action parameter="list" name="TTLaiGocForm"
+            path="/ListTTLaiGocVndAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTLaiGocVndAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTLaiGocVnd.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="TTLaiGocForm"
+            path="/SearchTTLaiGocVndAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTLaiGocVndAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTLaiGocVnd.jsp"/>
+      <forward name="failure" path="/ListTTLaiGocVndAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!--Thanh toán lãi, goc trái phi?u có lãi su?t danh nghia co dinh phát hành bang ngoai te-->
+    <action parameter="list" name="TTLaiGocForm"
+            path="/ListTTLaiGocUsdAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTLaiGocVndAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTLaiGocUsd.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="TTLaiGocForm"
+            path="/SearchTTLaiGocUsdAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTLaiGocVndAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTLaiGocUsd.jsp"/>
+      <forward name="failure" path="/ListTTLaiGocUsdAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!--Quan ly lenh chi tra no-->
+    <action parameter="list" name="LenhTraNoForm" path="/ListLenhTraNoAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/listLenhChiTraNo.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="LenhTraNoForm" path="/SearchLenhTraNoAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/listLenhChiTraNo.jsp"/>
+      <forward name="failure" path="/QLyLenhTraNoAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="view" name="LenhTraNoForm" path="/ViewLenhTraNoAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/viewLenhChiTraNo.jsp"/>
+      <forward name="failure" path="/QLyLenhTraNoAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="update" name="LenhTraNoForm" path="/UpdateLenhTraNoAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoAction">
+      <forward name="success" path="/ListLenhTraNoAction.do"/>
+      <forward name="failure" path="/QLyLenhTraNoAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="delete" name="LenhTraNoForm" path="/DeleteLenhTraNoAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoAction">
+      <forward name="success" path="/ListLenhTraNoAction.do"/>
+      <forward name="failure" path="/QLyLenhTraNoAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="list" name="LenhTraNoForm" path="/ListLenhTraNoPDAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoPDAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/listLenhChiTraNoPD.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="LenhTraNoForm" path="/SearchLenhTraNoPDAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoPDAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/listLenhChiTraNoPD.jsp"/>
+      <forward name="failure" path="/ListLenhTraNoPDAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="view" name="LenhTraNoForm" path="/ViewLenhTraNoPDAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoPDAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/viewLenhChiTraNoPD.jsp"/>
+      <forward name="failure" path="/ListLenhTraNoPDAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="update" name="LenhTraNoForm" path="/UpdateLenhTraNoPDAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoPDAction">
+      <forward name="success" path="/ListLenhTraNoPDAction.do"/>
+      <forward name="failure" path="/ListLenhTraNoPDAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+    <!--Quan ly lenh chi tra no usd-->
+    <action parameter="list" name="LenhTraNoForm" path="/ListLenhTraNoUsdAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/listLenhChiTraNoUsd.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="LenhTraNoForm" path="/SearchLenhTraNoUsdAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/listLenhChiTraNoUsd.jsp"/>
+      <forward name="failure" path="/ListLenhTraNoUsdAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="view" name="LenhTraNoForm" path="/ViewLenhTraNoUsdAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/viewLenhChiTraNoUsd.jsp"/>
+      <forward name="failure" path="/ListLenhTraNoUsdAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="update" name="LenhTraNoForm" path="/UpdateLenhTraNoUsdAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdAction">
+      <forward name="success" path="/ListLenhTraNoUsdAction.do"/>
+      <forward name="failure" path="/ListLenhTraNoUsdAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="delete" name="LenhTraNoForm" path="/DeleteLenhTraNoUsdAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdAction">
+      <forward name="success" path="/ListLenhTraNoUsdAction.do"/>
+      <forward name="failure" path="/ListLenhTraNoUsdAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="list" name="LenhTraNoForm" path="/ListLenhTraNoUsdPDAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdPDAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/listLenhChiTraNoUsdPD.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="LenhTraNoForm" path="/SearchLenhTraNoUsdPDAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdPDAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/listLenhChiTraNoUsdPD.jsp"/>
+      <forward name="failure" path="/ListLenhTraNoUsdPDAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="view" name="LenhTraNoForm" path="/ViewLenhTraNoUsdPDAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdPDAction">
+      <forward name="success" path="/pages/qlyLenhTraNo/viewLenhChiTraNoUsdPD.jsp"/>
+      <forward name="failure" path="/ListLenhTraNoUsdPDAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="update" name="LenhTraNoForm" path="/UpdateLenhTraNoUsdPDAction"
+            scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdPDAction">
+      <forward name="success" path="/ListLenhTraNoUsdPDAction.do"/>
+      <forward name="failure" path="/ListLenhTraNoUsdPDAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+    <action parameter="print" name="LenhTraNoForm"
+            path="/PrintLenhChiTraNoAction" scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoAction">
+      <forward name="failure" path="/pages/qlyLenhTraNo/viewLenhChiTraNo.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="print" name="LenhTraNoForm"
+            path="/PrintLenhChiTraNoUsdAction" scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.QLyLenhTraNoUsdAction">
+      <forward name="failure" path="/pages/qlyLenhTraNo/viewLenhChiTraNoUsd.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+    <action parameter="view" name="LenhTraNoForm"
+            path="/GetAjaxDonViNhanAction" scope="request"
+            type="com.seatech.tp.qlyLenhTraNo.action.GetAjaxDonViNhanAction">
+    </action>
+    
+    <!--Thanh toán phi qua HNX-->
+    <action parameter="list" name="TTLaiGocForm"
+            path="/ListTTPhiHNXAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTPhiHNXAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTPhiHNX.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="TTLaiGocForm"
+            path="/SearchTTPhiHNXAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTPhiHNXAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTPhiHNX.jsp"/>
+      <forward name="failure" path="/ListTTPhiHNXAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+    <!--Thanh toán goc tin phieu-->
+    <action parameter="list" name="TTLaiGocForm"
+            path="/ListTTGocTinPhieuAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTGocTinPhieuAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTGocTinPhieu.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="TTLaiGocForm"
+            path="/SearchTTGocTinPhieuAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTGocTinPhieuAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTGocTinPhieu.jsp"/>
+      <forward name="failure" path="/ListTTGocTinPhieuAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+     <!--Thanh toán phi tin phieu-->
+    <action parameter="list" name="TTLaiGocForm"
+            path="/ListTTPhiTinPhieuAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTPhiTinPhieuAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTPhiTinPhieu.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="TTLaiGocForm"
+            path="/SearchTTPhiTinPhieuAction" scope="request"
+            type="com.seatech.tp.ttlaigoc.action.TTPhiTinPhieuAction">
+      <forward name="success" path="/pages/ttlaigoc/listTTPhiTinPhieu.jsp"/>
+      <forward name="failure" path="/ListTTPhiTinPhieuAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+  </action-mappings>
+  <controller nocache="true"
+              processorClass="org.apache.struts.action.RequestProcessor"
+              contentType="text/html;charset=UTF-8" locale="false"/>
+</struts-config>

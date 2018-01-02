@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    
+    <form-bean name="loginForm" type="com.seatech.tp.user.form.UserForm"/>
+    <form-bean name="DMKBForm" type="com.seatech.tp.dmkb.form.DMKBacForm"/>
+    <form-bean name="DMNHForm" type="com.seatech.tp.dmnh.form.DMNHangForm"/>
+    <form-bean name="MainForm" type="com.seatech.tp.main.form.MainForm"/>
+    <form-bean name="PhanNhomForm"
+               type="com.seatech.tp.nhomnsd.form.PhanNhomForm"/>
+    <form-bean name="PhanQuyenForm"
+               type="com.seatech.tp.chucnang.form.PhanQuyenForm"/>               
+    <form-bean name="LovForm"
+               type="com.seatech.tp.lov.LovForm"/>
+   <form-bean name="DongBoNsdForm"
+               type="com.seatech.ttsp.DongBoHoa.Form.DongBoHoaForm"/>
+  </form-beans>
+  <global-forwards type="org.apache.struts.action.ActionForward">
+    <forward name="login" path="/login.jsp?action=02"/>
+    <forward name="prelogin" path="/main.jsp"/>
+    <forward name="notRight" path="/pages/main/errorQuyen.jsp"/>
+  </global-forwards>
+  <action-mappings>
+    <action parameter="login" name="loginForm" path="/loginAction"
+            scope="request" input="/login.jsp"
+            type="com.seatech.tp.user.action.LoginAction">
+
+      <forward name="success" path="/mainAction.do"/>
+      <forward name="failure" path="/login.jsp"/>
+      <forward name="confirm" path="/pages/loginConfirm.jsp"/>
+    </action>
+    <action name="loginForm" path="/lovAction"
+            scope="request" input="/lovDM.jsp"
+            type="com.seatech.tp.lov.LovAction">
+      <forward name="success" path="/lovDM.jsp"/>
+      <forward name="failure" path="/lovDM.jsp"/>
+      <forward name="confirm" path="/lovDM.jsp"/>
+    </action>
+    <action parameter="logout" name="loginForm" path="/logoutAction"
+            scope="request" type="com.seatech.tp.user.action.LogoutAction">
+      <forward name="success" path="/login.jsp"/>
+    </action>
+    <action name="DMKBForm" path="/loadDMKBAction" scope="request"
+            type="com.seatech.tp.dmkb.action.LoadTenKBacAction">
+      <forward name="success" path="/testJson.jsp"/>
+    </action>
+    <action name="DMNHForm" path="/loadDMNHAction" scope="request"
+            type="com.seatech.tp.dmnh.action.LoadTenNHangAction">
+      <forward name="success" path="/pages/ltt/lttDiAdd.jsp"/>
+    </action>
+   
+    <action name="PhanNhomForm" path="/phanNhomAction" scope="request"
+            type="com.seatech.tp.nhomnsd.action.PhanNhomAction">
+      <forward name="success" path="/pages/user/phanNhomNSD.jsp"/>
+      <forward name="failure" path="/pages/user/phanNhomNSD.jsp"/>
+    </action>
+    <action name="PhanNhomForm" parameter="addExc" path="/phanNhomExcAction"
+            scope="request"
+            type="com.seatech.tp.nhomnsd.action.PhanNhomAction">
+      <forward name="success" path="/phanNhomAction.do"/>
+      <forward name="failure" path="/phanNhomAction.do"/>
+    </action>
+    <action name="PhanQuyenForm" path="/phanQuyenAction" scope="request"
+            type="com.seatech.tp.chucnang.action.PhanQuyenAction">
+      <forward name="success" path="/pages/user/phanquyen/PhanQuyen.jsp"/>
+      <forward name="failure" path="/pages/user/phanquyen/PhanQuyen.jsp"/>
+    </action>
+    <action name="PhanQuyenForm" parameter="addExc" path="/phanQuyenExcAction"
+            scope="request"
+            type="com.seatech.tp.chucnang.action.PhanQuyenAction">
+      <forward name="success" path="/phanQuyenAction.do"/>
+      <forward name="failure" path="/phanQuyenAction.do"/>
+    </action>
+    <!-- DMKB -->
+    <action name="DMKBForm" path="/phanNhomLoadMaKBAction" scope="request"
+            type="com.seatech.tp.dmkb.action.LoadTenKBacAction">
+      <forward name="success" path="/pages/user/phanNhomNSD.jsp"/>
+      <forward name="failure" path="/pages/user/phanNhomNSD.jsp"/>
+    </action>
+    
+    <action name="DMKBForm" path="/QLyDMucKBacAction" scope="request"
+            type="com.seatech.tp.dmkb.action.DMKBacAction">
+      <forward name="success" path="/pages/dmkb/QLyDMucKBac.jsp"/>
+      <forward name="failure" path="/pages/dmkb/QLyDMucKBac.jsp"/>
+    </action>
+    
+    <action name="MainForm" path="/mainAction" scope="request"
+            type="com.seatech.tp.main.action.MainAction">
+      <forward name="success" path="/pages/main/main.jsp"/>
+      <forward name="failure" path="/pages/main/main.jsp"/>
+    </action>
+    <action name="MainForm" parameter="list" path="/thongkeTongHop" scope="request"
+            type="com.seatech.tp.main.action.MainAction">
+      <forward name="success" path="/pages/main/thongketonghop.jsp"/>
+      <forward name="failure" path="/pages/main/thongketonghop.jsp"/>
+    </action>
+    <action path="/mainAction2" forward="/pages/main/main.jsp"/>   
+    
+    <!--+++++++++++++++++++++++++++++++++ DongBoHoa ++++++++++++++++++++++++++++++ +++-->
+    <action parameter="list" name="DongBoNsdForm" path="/DongBoHoaListAction"
+            scope="request"
+            type="com.seatech.tp.DongBoHoa.Action.DongBoHoaAction">
+      <forward name="success" path="/pages/DongBoHoa/DongBoHoa.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/DongBoHoa/DongBoHoa.jsp"/>
+    </action>
+    <action parameter="update" name="DongBoNsdForm"
+            path="/DongBoHoaUpdateAction" scope="request"
+            type="com.seatech.tp.DongBoHoa.Action.DongBoHoaAction">
+      <forward name="success" path="/pages/DongBoHoa/DongBoHoaUpdate.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/DongBoHoa/DongBoHoa.jsp"/>
+    </action>
+    <action parameter="updateExc" name="DongBoNsdForm"
+            path="/DongBoHoaUpdateExcAction" scope="request"
+            type="com.seatech.tp.DongBoHoa.Action.DongBoHoaAction">
+      <forward name="success" path="/pages/DongBoHoa/DongBoHoa.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/DongBoHoa/DongBoHoaUpdate.jsp"/>
+    </action>
+    <action parameter="executeAction" name="DongBoNsdForm"
+            path="/DongBoHoaStartStopAction" scope="request"
+            type="com.seatech.tp.DongBoHoa.Action.DongBoHoaAction">
+      <forward name="success" path="/pages/DongBoHoa/DongBoHoa.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/DongBoHoa/DongBoHoa.jsp"/>
+    </action>
+    <action parameter="view" name="DongBoNsdForm" path="/DongBoHoaViewLogAction"
+            scope="request"
+            type="com.seatech.tp.DongBoHoa.Action.DongBoHoaAction">
+      <forward name="success" path="/pages/DongBoHoa/DongBoHoa.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/DongBoHoa/DongBoHoa.jsp"/>
+    </action>
+    
+  </action-mappings>
+  <message-resources parameter="com.seatech.tp.ApplicationResources"/>
+</struts-config>

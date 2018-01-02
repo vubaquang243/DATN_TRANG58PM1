@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="BanLeTraiPhieuTwForm"
+               type="com.seatech.tp.banletraiphieutw.form.BanLeTraiPhieuTwForm"/>
+  </form-beans>
+  <action-mappings>
+    <action parameter="list" name="BanLeTraiPhieuTwForm"
+            path="/ListBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/pages/banletraiphieutw/listKQPHTP.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="BanLeTraiPhieuTwForm"
+            path="/SearchBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/pages/banletraiphieutw/listKQPHTP.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+ 
+    <action parameter="search" name="BanLeTraiPhieuTwForm"
+            path="/SearchBanLeTraiPhieuTwPDAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwPDAction">
+      <forward name="success" path="/pages/banletraiphieutw/listKQPHTP_PheDuyet.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="list" name="BanLeTraiPhieuTwForm"
+            path="/ListBanLeTraiPhieuTwPDAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwPDAction">
+      <forward name="success" path="/pages/banletraiphieutw/listKQPHTP_PheDuyet.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="view" name="BanLeTraiPhieuTwForm"
+            path="/viewBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/pages/banletraiphieutw/viewKQPHTP.jsp"/>
+      <forward name="failure" path="/pages/banletraiphieutw/listKQPHTP.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+        <action  name="BanLeTraiPhieuTwForm"
+            path="/GetAjaxKyHanBLAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.getAjaxBanLeAction">
+            <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+     <action parameter="view" name="BanLeTraiPhieuTwForm"
+        path="/viewBanLeTraiPhieuTwPDAction" scope="request"
+         type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/pages/banletraiphieutw/viewKQPHTP_PheDuyet.jsp"/>
+      <forward name="failure" path="/pages/banletraiphieutw/listKQPHTP_PheDuyet.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="add" name="BanLeTraiPhieuTwForm"
+            path="/AddBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/pages/banletraiphieutw/addKQPHTP.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="addExc" name="BanLeTraiPhieuTwForm"
+            path="/AddExeBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/ListBanLeTraiPhieuTwAction.do"/>
+      <forward name="failure" path="/AddBanLeTraiPhieuTwAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="update" name="BanLeTraiPhieuTwForm"
+            path="/UpdateBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/pages/banletraiphieutw/editKQPHTP.jsp"/>
+      <forward name="failure" path="/ListBanLeTraiPhieuTwAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="updateExc" name="BanLeTraiPhieuTwForm"
+            path="/UpdateExeBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/ListBanLeTraiPhieuTwAction.do"/>
+      <forward name="failure" path="/UpdateBanLeTraiPhieuTwAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="delete" name="BanLeTraiPhieuTwForm"
+            path="/DeleteBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/ListBanLeTraiPhieuTwAction.do"/>
+      <forward name="failure" path="/ListBanLeTraiPhieuTwAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="trinh" name="BanLeTraiPhieuTwForm"
+            path="/TrinhKQBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/ListBanLeTraiPhieuTwAction.do"/>
+      <forward name="failure" path="/pages/banletraiphieutw/viewKQPHTP.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+     <action parameter="pheduyet" name="BanLeTraiPhieuTwForm"
+            path="/PheDuyetKQBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/ListBanLeTraiPhieuTwPDAction.do"/>
+      <forward name="failure" path="/pages/banletraiphieutw/viewKQPHTP_PheDuyet.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+ 
+      <action parameter="tuchoi" name="BanLeTraiPhieuTwForm"
+            path="/TuChoiKQBanLeTraiPhieuTwAction" scope="request"
+            type="com.seatech.tp.banletraiphieutw.action.BanLeTraiPhieuTwAction">
+      <forward name="success" path="/ListBanLeTraiPhieuTwPDAction.do"/>
+      <forward name="failure" path="/pages/banletraiphieutw/viewKQPHTP_PheDuyet.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+  </action-mappings>
+  <controller nocache="true"
+              processorClass="org.apache.struts.action.RequestProcessor"
+              contentType="text/html;charset=UTF-8" locale="false"/>
+</struts-config>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LTT" pageWidth="700" pageHeight="600" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e2476bf7-cc7f-41b8-9d04-a3d887d84200">
+	<property name="ireport.zoom" value="1.24184264611831"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<queryString>
+		<![CDATA[SELECT a.id,a.kb_id ,b.ma,b.ma_cha, a.ten_nsd, a.ma_tabmis, a.chuc_danh, a.ma_nsd,  a.trang_thai, a.ngay_tao, a.nguoi_tao, a.ip_truycap, a.session_id, a.tgian_truycap,a.domain, a.login_failure, a.mac_address, a.ten_may_truycap, a.user_may_truycap  FROM sp_nsd a  inner JOIN sp_dm_htkb b  on a.kb_id = b.id ORDER BY a.id DESC]]>
+	</queryString>
+	<field name="ID" class="java.math.BigDecimal"/>
+	<field name="KB_ID" class="java.math.BigDecimal"/>
+	<field name="MA" class="java.lang.String"/>
+	<field name="MA_CHA" class="java.lang.String"/>
+	<field name="TEN_NSD" class="java.lang.String"/>
+	<field name="MA_TABMIS" class="java.lang.String"/>
+	<field name="CHUC_DANH" class="java.lang.String"/>
+	<field name="MA_NSD" class="java.lang.String"/>
+	<field name="TRANG_THAI" class="java.lang.String"/>
+	<field name="NGAY_TAO" class="java.sql.Timestamp"/>
+	<field name="NGUOI_TAO" class="java.math.BigDecimal"/>
+	<field name="IP_TRUYCAP" class="java.lang.String"/>
+	<field name="SESSION_ID" class="java.lang.String"/>
+	<field name="TGIAN_TRUYCAP" class="java.sql.Timestamp"/>
+	<field name="DOMAIN" class="java.lang.String"/>
+	<field name="LOGIN_FAILURE" class="java.math.BigDecimal"/>
+	<field name="MAC_ADDRESS" class="java.lang.String"/>
+	<field name="TEN_MAY_TRUYCAP" class="java.lang.String"/>
+	<field name="USER_MAY_TRUYCAP" class="java.lang.String"/>
+	<variable name="stt" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{stt}.intValue() + 1]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="v_trang_thai" class="java.lang.String">
+		<variableExpression><![CDATA[($F{TRANG_THAI}.equals("01") ? "Đang hoạt động" : ($F{TRANG_THAI}.equals("02") ? "Khóa" : "Ngừng hoạt động"))]]></variableExpression>
+	</variable>
+	<title>
+		<band height="168" splitType="Stretch">
+			<staticText>
+				<reportElement x="75" y="89" width="508" height="57" uuid="d181300a-b692-44f0-b36a-6fe50ffab0c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[DANH SÁCH NGƯỜI SỬ DỤNG HỆ THỐNG TPCP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="37" width="209" height="20" uuid="139a8ffe-87e2-4de8-834f-dc605f4da848"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KHO BẠC NHÀ NƯỚC VIỆT NAM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="33" height="16" uuid="3990a209-6477-4278-bd2e-75c16e3d09c8"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Số TT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="0" width="85" height="16" uuid="f2498d49-15ab-4758-a41e-1a5e6be3b93f"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mã NSD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="0" width="83" height="16" uuid="b122afb1-5e0b-4357-a2b2-e4f2becd84bc"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Domain]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="0" width="163" height="16" uuid="569929b7-d3a4-449f-a893-82c8d72bf356"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Họ và tên NSD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="553" y="0" width="107" height="16" uuid="b42f2078-c104-41f4-874e-875173007952"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Trạng thái]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="0" width="189" height="16" uuid="d0e9b932-2486-44ae-b814-7768eb144157"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Chức danh]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="33" height="16" uuid="98f75f29-51de-4731-aacc-d726fda31dd2"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{stt}.intValue()+1]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="33" y="0" width="85" height="16" uuid="427761ee-6c3a-4737-8735-16fe46856a28"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="arial.ttf" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MA_NSD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="0" width="189" height="16" uuid="d676a72a-7149-411a-9ed6-d76e66a68bb9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHUC_DANH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="83" height="16" uuid="67a29a76-cea9-43dc-9080-f1350506feb2"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOMAIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="553" y="0" width="107" height="16" uuid="31c572a7-dba7-4217-a863-b3ba8c08ead9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_trang_thai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="0" width="163" height="16" uuid="7056a2ff-fd8f-417a-a31c-18085b38746e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TEN_NSD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="94" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="505" y="43" width="131" height="20" uuid="341ac014-d87d-4d2c-bab9-08cf6062918e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="469" y="42" width="32" height="20" uuid="f765d7b7-bc04-407a-b13f-49fab679a9ed"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Cp1258"/>
+				</textElement>
+				<text><![CDATA[Ngày:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

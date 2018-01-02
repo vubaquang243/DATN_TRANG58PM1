@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="QuanLyNSDForm"
+               type="com.seatech.tp.user.form.QuanLyNSDForm"/>
+    <form-bean name="PhanNhomNSDForm"
+               type="com.seatech.tp.nhomnsd.form.QLyNhomNSDForm"/>
+    <form-bean name="ThamSoHT"
+               type="com.seatech.tp.thamso.form.ThamSoHThongForm"/>
+    <form-bean name="LSuTruyCapForm"
+               type="com.seatech.tp.lstruycap.form.LSuTruyCapForm"/>
+    <form-bean name="TraCuuLSuNSDForm"
+               type="com.seatech.tp.user.form.TraCuuLSuNSDForm"/>
+    <form-bean name="DMTraiChuForm"
+               type="com.seatech.tp.dmtraichu.form.DMTraiChuForm"/>
+  </form-beans>
+  <action-mappings>
+    <!-- Qu?n lý ??n v? s? h?u -->
+    <action  name="DMTraiChuForm" path="/GetAjaxDonViSoHuuAction"
+            scope="request" type="com.seatech.tp.dmtraichu.action.GetAjaxDonViSoHuuAction">
+    </action>
+    <action parameter="list" name="DMTraiChuForm" path="/QuanLyDVSHListAction"
+            scope="request" type="com.seatech.tp.dmtraichu.action.QLyDMTraiChuAction">
+      <forward name="success" path="/pages/dvsh/listDVSH.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+    </action>
+     <action parameter="search" name="DMTraiChuForm" path="/SearchDVSHListAction"
+            scope="request" type="com.seatech.tp.dmtraichu.action.QLyDMTraiChuAction">
+      <forward name="success" path="/pages/dvsh/listDVSH.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/QuanLyDVSHListAction.do"/>
+    </action>
+    <action parameter="add" name="DMTraiChuForm" path="/AddDVSHListAction"
+            scope="request" type="com.seatech.tp.dmtraichu.action.QLyDMTraiChuAction">
+      <forward name="success" path="/pages/dvsh/addDVSH.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/QuanLyDVSHListAction.do"/>
+    </action>
+    <action parameter="addExc" name="DMTraiChuForm" path="/AddExcDVSHListAction"
+            scope="request" type="com.seatech.tp.dmtraichu.action.QLyDMTraiChuAction">
+      <forward name="success" path="/QuanLyDVSHListAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/AddDVSHListAction.do"/>
+    </action>
+    <action parameter="update" name="DMTraiChuForm" path="/UpdateDVSHListAction"
+            scope="request" type="com.seatech.tp.dmtraichu.action.QLyDMTraiChuAction">
+      <forward name="success" path="/pages/dvsh/addDVSH.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/QuanLyDVSHListAction.do"/>
+    </action>
+    <action parameter="updateExc" name="DMTraiChuForm" path="/UpdateExcDVSHListAction"
+            scope="request" type="com.seatech.tp.dmtraichu.action.QLyDMTraiChuAction">
+      <forward name="success" path="/QuanLyDVSHListAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/AddDVSHListAction.do"/>
+    </action>
+    <action parameter="delete" name="DMTraiChuForm" path="/DeleteDVSHListAction"
+            scope="request" type="com.seatech.tp.dmtraichu.action.QLyDMTraiChuAction">
+      <forward name="success" path="/QuanLyDVSHListAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/QuanLyDVSHListAction.do"/>
+    </action>
+    <!--+++++++++++++++++++++++++++++++++ QuanLyNSDAction +++++++++++++++++++++++++++++++++-->
+    <action parameter="list" name="QuanLyNSDForm" path="/QuanLyNSDListAction"
+            scope="request" type="com.seatech.tp.user.action.QuanLyNSDAction">
+      <forward name="success" path="/pages/user/listNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/user/listNSD.jsp"/>
+    </action>
+    <action parameter="print" name="QuanLyNSDForm" path="/QuanLyNSDPrintAction"
+            scope="request" type="com.seatech.tp.user.action.QuanLyNSDAction">
+      <forward name="success" path="/pages/user/listNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/user/listNSD.jsp"/>
+    </action>
+    <action parameter="add" name="QuanLyNSDForm" path="/QuanLyNSDAddAction"
+            scope="request" type="com.seatech.tp.user.action.QuanLyNSDAction">
+      <forward name="success" path="/pages/user/addNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/user/addNSD.jsp"/>
+    </action>
+    <action parameter="executeAction" name="QuanLyNSDForm"
+            path="/QuanLyNSDExecuteAction" scope="request"
+            type="com.seatech.tp.user.action.QuanLyNSDAction">
+      <forward name="success" path="/pages/user/addNSD.jsp"/>
+      <forward name="failure" path="/QuanLyNSDAddAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="addExc" name="QuanLyNSDForm"
+            path="/QuanLyNSDAddExcAction" scope="request"
+            type="com.seatech.tp.user.action.QuanLyNSDAction">
+      <forward name="success" path="/pages/user/listNSD.jsp"/>
+      <forward name="failure" path="/pages/user/addNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="active" path="/pages/user/ActiveDirectory.jsp"/>
+    </action>
+    <action parameter="update" name="QuanLyNSDForm"
+            path="/QuanLyNSDUpdateAction" scope="request"
+            type="com.seatech.tp.user.action.QuanLyNSDAction">
+      <forward name="success" path="/pages/user/updateNSD.jsp"/>
+      <forward name="back" path="/QuanLyNSDListAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/user/updateNSD.jsp"/>
+    </action>
+    <action parameter="updateExc" name="QuanLyNSDForm"
+            path="/QuanLyNSDUpdateExcAction" scope="request"
+            type="com.seatech.tp.user.action.QuanLyNSDAction">
+      <forward name="success" path="/pages/user/listNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/user/listNSD.jsp"/>
+    </action>
+    <action parameter="delete" name="QuanLyNSDForm"
+            path="/QuanLyNSDDeleteAction" scope="request"
+            type="com.seatech.tp.user.action.QuanLyNSDAction">
+      <forward name="success" path="/QuanLyNSDListAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="back" path="/QuanLyNSDListAction.do"/>
+      <forward name="failure" path="/pages/user/listNSD.jsp"/>
+    </action>
+    <!-- +++++++++++++++++++++++++++++++++ ThamSoHTAction +++++++++++++++++++++++++++++++++ -->
+    <action parameter="list" name="ThamSoHT" path="/ThamSoHTListAction"
+            scope="request"
+            type="com.seatech.tp.thamso.action.ThamSoHThongAction">
+      <forward name="success" path="/pages/thamsoht/ListThamSoHT.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/thamsoht/ListThamSoHT.jsp"/>
+    </action>
+    <action parameter="print" name="ThamSoHT" path="/ThamSoHTPrintAction"
+            scope="request"
+            type="com.seatech.tp.thamso.action.ThamSoHThongAction">
+      <forward name="success" path="/pages/thamsoht/ListThamSoHT.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/thamsoht/ListThamSoHT.jsp"/>
+    </action>
+    <action parameter="update" name="ThamSoHT" path="/ThamSoHTUpdateAction"
+            scope="request"
+            type="com.seatech.tp.thamso.action.ThamSoHThongAction">
+      <forward name="success" path="/pages/thamsoht/UpdateThamSoHT.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/thamsoht/UpdateThamSoHT.jsp"/>
+    </action>
+    <action parameter="updateExc" name="ThamSoHT"
+            path="/ThamSoHTUpdateExcAction" scope="request"
+            type="com.seatech.tp.thamso.action.ThamSoHThongAction">
+      <forward name="success" path="/pages/thamsoht/ListThamSoHT.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/thamsoht/ListThamSoHT.jsp"/>
+    </action>
+    <action parameter="view" name="ThamSoHT" path="/ThamSoHTLSuListAction"
+            scope="request"
+            type="com.seatech.tp.thamso.action.ThamSoHThongAction">
+      <forward name="success" path="/pages/thamsoht/ListLSuThamSoHT.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/thamsoht/ListLSuThamSoHT.jsp"/>
+    </action>
+    <action name="ThamSoHT" path="/ThamSoHTLSuPrintAction" scope="request"
+            type="com.seatech.tp.thamso.action.ThamSoHThongAction">
+      <forward name="success" path="/pages/thamsoht/ListLSuThamSoHT.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/thamsoht/ListLSuThamSoHT.jsp"/>
+    </action>
+    <!--+++++++++++++++++++++++++++++++++ QuanLyNhomNSDAction +++++++++++++++++++++++++++++++++-->
+    <action parameter="list" name="PhanNhomNSDForm"
+            path="/QuanLyNhomNSDListAction" scope="request"
+            type="com.seatech.tp.nhomnsd.action.QLyNhomNSDAction">
+      <forward name="success" path="/pages/pnhomnsd/ListPhanNhomNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+    </action>
+    <action parameter="print" name="PhanNhomNSDForm"
+            path="/QuanLyNhomNSDPrintAction" scope="request"
+            type="com.seatech.tp.nhomnsd.action.QLyNhomNSDAction">
+      <forward name="success" path="/pages/pnhomnsd/ListPhanNhomNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/pnhomnsd/ListPhanNhomNSD.jsp"/>
+    </action>
+    <action parameter="add" name="PhanNhomNSDForm"
+            path="/QuanLyNhomNSDAddAction" scope="request"
+            type="com.seatech.tp.nhomnsd.action.QLyNhomNSDAction">
+      <forward name="success" path="/pages/pnhomnsd/AddPhanNhomNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/pnhomnsd/AddPhanNhomNSD.jsp"/>
+    </action>
+    <action parameter="addExc" name="PhanNhomNSDForm"
+            path="/QuanLyNhomNSDAddExcAction" scope="request"
+            type="com.seatech.tp.nhomnsd.action.QLyNhomNSDAction">
+      <forward name="success" path="/QuanLyNhomNSDListAction.do"/>
+      <forward name="failure" path="/QuanLyNhomNSDAddAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="update" name="PhanNhomNSDForm"
+            path="/QuanLyNhomNSDUpdateAction" scope="request"
+            type="com.seatech.tp.nhomnsd.action.QLyNhomNSDAction">
+      <forward name="success" path="/pages/pnhomnsd/UpdatePhanNhomNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/pnhomnsd/UpdatePhanNhomNSD.jsp"/>
+    </action>
+    <action parameter="updateExc" name="PhanNhomNSDForm"
+            path="/QuanLyNhomNSDUpdateExcAction" scope="request"
+            type="com.seatech.tp.nhomnsd.action.QLyNhomNSDAction">
+      <forward name="success" path="/QuanLyNhomNSDListAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/QuanLyNhomNSDUpdateAction.do"/>
+    </action>
+    <action parameter="delete" name="PhanNhomNSDForm"
+            path="/QuanLyNhomNSDDeleteAction" scope="request"
+            type="com.seatech.tp.nhomnsd.action.QLyNhomNSDAction">
+      <forward name="success" path="/pages/pnhomnsd/ListPhanNhomNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/QuanLyNhomNSDListAction.do"/>
+    </action>
+    <action parameter="view" name="QuanLyNSDForm"
+            path="/QuanLyNhomNSDViewAction" scope="request"
+            type="com.seatech.tp.nhomnsd.action.QLyNhomNSDAction">
+      <forward name="success" path="/pages/pnhomnsd/ViewPhanNhomNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/QuanLyNhomNSDListAction.do"/>
+    </action>
+    <action parameter="list" name="LSuTruyCapForm" path="/LSuTruyCapListAction"
+            scope="request"
+            type="com.seatech.tp.lstruycap.action.LSuTruyCapAction">
+      <forward name="success" path="/pages/lstruycap/LSuTruyCap.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/lstruycap/LSuTruyCap.jsp"/>
+    </action>
+    <action parameter="print" name="LSuTruyCapForm"
+            path="/LSuTruyCapPrintAction" scope="request"
+            type="com.seatech.tp.lstruycap.action.LSuTruyCapAction">
+      <forward name="success" path="/pages/lstruycap/LSuTruyCap.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/lstruycap/LSuTruyCap.jsp"/>
+    </action>
+    <!--+++++++++++++++++++++++++++++++++ LSuNSDListAction ++++++++++++++++++++++++++++++ +++-->
+    <action parameter="list" name="TraCuuLSuNSDForm" path="/TraCuuLSuNSDAction"
+            scope="request"
+            type="com.seatech.tp.user.action.TraCuuLSuNSDAction">
+      <forward name="success" path="/pages/user/TraCuuLSuNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/user/TraCuuLSuNSD.jsp"/>
+    </action>
+    <action parameter="print" name="TraCuuLSuNSDForm" path="/PrintLSuNSDAction"
+            scope="request"
+            type="com.seatech.tp.user.action.TraCuuLSuNSDAction">
+      <forward name="success" path="/pages/user/TraCuuLSuNSD.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+      <forward name="failure" path="/pages/user/TraCuuLSuNSD.jsp"/>
+    </action>
+    <!-- +++++++++++++++++++++++++++++++++   +++++++++++++++++++++++++++++++++  -->
+    <action name="DMKBForm" path="/addNSDLoadDMKBAction" scope="request"
+            type="com.seatech.tp.dmkb.action.LoadTenKBacAction">
+      <forward name="success" path="/pages/user/listNSD.jsp"/>
+      <forward name="failure" path="/pages/user/listNSD.jsp"/>
+    </action>
+  </action-mappings>
+  <controller nocache="true"
+              processorClass="org.apache.struts.action.RequestProcessor"
+              contentType="text/html;charset=UTF-8" locale="false"/>
+</struts-config>

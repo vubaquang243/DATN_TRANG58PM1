@@ -1,0 +1,137 @@
+package com.seatech.tp.bccocaunhadautu.action;
+
+import com.seatech.framework.AppConstants;
+import com.seatech.framework.common.jsp.PagingBean;
+import com.seatech.framework.datamanager.ReportUtility;
+import com.seatech.framework.strustx.AppAction;
+import com.seatech.tp.bccocaunhadautu.form.BCCoCauNhaDauTuForm;
+import com.seatech.tp.bccocaunhadautu.vo.BCCoCauNhaDauTuVo;
+import com.seatech.tp.bcsolieuhuydongvon.action.BCSLHuyDongVonDelegate;
+import com.seatech.tp.bcsolieuhuydongvon.form.BCSLHuyDongVonForm;
+import com.seatech.tp.bcsolieuhuydongvon.vo.BCSLHuyDongVonVo;
+
+import java.io.InputStream;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+public class BCCoCauNhaDauTuAction extends AppAction {
+    private static String SUCCESS = "success";
+    //private static String FAILURE = "failure";
+
+
+    public ActionForward list(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Connection conn = null;
+        try {
+            BCCoCauNhaDauTuForm f = (BCCoCauNhaDauTuForm)form;
+            f.reset(mapping, request);
+            request.setAttribute("lstBCCoCauNhaDauTu", new ArrayList());
+            return mapping.findForward(SUCCESS);
+        } catch (Exception e) {
+            conn.rollback();
+            throw e;
+        } finally {
+            close(conn);
+        }
+    }
+
+    public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //check quyen
+
+        Connection conn = null;
+        try {
+            conn = getConnection(request);
+            BCCoCauNhaDauTuForm f = (BCCoCauNhaDauTuForm)form;
+            int phantrang = (AppConstants.APP_NUMBER_ROW_ON_PAGE);
+            // khai bao bien phan trang.
+            String page = f.getPageNumber();
+            if (page == null)
+                page = "1";
+            Integer currentPage = new Integer(page);
+            Integer numberRowOnPage = phantrang;
+            Integer totalCount[] = new Integer[1];
+            BCCoCauNhaDauTuVo vo = new BCCoCauNhaDauTuVo();
+            BeanUtils.copyProperties(vo, f);
+            vo.setNgay_phat_hanh_tu_ngay(f.getNgay_phat_hanh_tu_ngay());
+            vo.setNgay_phat_hanh_den_ngay(f.getNgay_phat_hanh_den_ngay());
+            BCCoCauNhaDauTuDelegate delegate = new BCCoCauNhaDauTuDelegate(conn);
+            List lstBCCoCauNhaDauTu = null;
+            lstBCCoCauNhaDauTu = (List)delegate.getBCCoCauNhaDauTuPaging(vo, currentPage, numberRowOnPage, totalCount);
+            PagingBean pagingBean = new PagingBean();
+            pagingBean.setCurrentPage(currentPage);
+            pagingBean.setNumberOfRow((totalCount[0] == null) ? 0 : totalCount[0].intValue());
+            pagingBean.setRowOnPage(numberRowOnPage);
+            request.setAttribute("PAGE_KEY", pagingBean);
+            request.setAttribute("lstBCCoCauNhaDauTu", lstBCCoCauNhaDauTu);
+        } catch (Exception e) {
+            conn.rollback();
+            throw e;
+        } finally {
+            close(conn);
+        }
+        return mapping.findForward(SUCCESS);
+    }
+
+    public static final String REPORT_DIRECTORY = "/report";
+    public static final String strFontTimeRoman = "/font/times.ttf";
+    public static final String fileName = "/BCCoCauNhaDauTu";
+
+    public ActionForward printAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String reportName = "/BCCoCauNhaDauTu";
+        Connection conn = null;
+        InputStream reportStream = null;
+        StringBuffer sbSubHTML = new StringBuffer();
+        try {
+            conn = getConnection();
+            BCCoCauNhaDauTuForm f = (BCCoCauNhaDauTuForm)form;
+            sbSubHTML.append("<input type=\"hidden\" name=\"loai_tien\" value=\"" + f.getLoai_tien() + "\" id=\"loai_tien\"></input>");
+            sbSubHTML.append("<input type=\"hidden\" name=\"ngay_phat_hanh_tu_ngay\" value=\"" + f.getNgay_phat_hanh_tu_ngay() + "\" id=\"ngay_phat_hanh_tu_ngay\"></input>");
+            sbSubHTML.append("<input type=\"hidden\" name=\"ngay_phat_hanh_den_ngay\" value=\"" + f.getNgay_phat_hanh_den_ngay() + "\" id=\"ngay_phat_hanh_den_ngay\"></input>");
+            JasperPrint jasperPrint = null;
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            parameterMap.put("pLoaiTien", f.getLoai_tien());
+            parameterMap.put("pTuNgay", f.getNgay_phat_hanh_tu_ngay());
+            parameterMap.put("pDenNgay", f.getNgay_phat_hanh_den_ngay());
+            reportStream = getServlet().getServletConfig().getServletContext().getResourceAsStream(REPORT_DIRECTORY + reportName + ".jasper");
+            jasperPrint = JasperFillManager.fillReport(reportStream, parameterMap, conn);
+
+            ReportUtility rpUtilites = new ReportUtility();
+
+            String strTypePrintAction = request.getParameter(AppConstants.REQUEST_ACTION) == null ? "" : request.getParameter(AppConstants.REQUEST_ACTION).toString();
+            String strActionName = "PrintBCCoCauNhaDauTuAction.do";
+            String strParameter = "";
+            String strPathFont = getServlet().getServletContext().getContextPath() + REPORT_DIRECTORY + strFontTimeRoman;
+
+            rpUtilites.exportReport(jasperPrint, strTypePrintAction, response, fileName, strPathFont, strActionName, sbSubHTML.toString(), strParameter);
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                reportStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            close(conn);
+        }
+        return mapping.findForward(SUCCESS);
+    }
+}

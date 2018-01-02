@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BCThanhToanTpcp" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d932c432-dc2e-4538-a677-616083ca4537">
+	<property name="ireport.zoom" value="1.1289478601075547"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<style name="style1">
+		<box leftPadding="7" rightPadding="4"/>
+	</style>
+	<parameter name="pTuNgay" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pDenNgay" class="java.lang.String"/>
+	<parameter name="subReport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Project\\TPCP\\SourceCode\\TPCPApp\\TPCP\\public_html\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT kh.MO_TA,
+  bc.*,
+  NVL(lk.luy_ke,0) luy_ke
+  FROM
+  (SELECT KY_HAN,
+    SUM(TONG_KL_TRUNG_THAU) khoi_luong_ph,
+    MIN(LS_TRUNG_THAU) min_ls,
+    MAX(LS_TRUNG_THAU) max_ls,
+    round(100*(sum(TONG_KL_TRUNG_THAU) / sum(sum(TONG_KL_TRUNG_THAU)) over ()),2) ty_trong
+  FROM
+    (SELECT a.KY_HAN,
+      a.TONG_KL_TRUNG_THAU,
+      b.LS_TRUNG_THAU
+    FROM TP_KQPH a,
+      TP_KQPH_CTIET_TPCP b
+    WHERE a.GUID          = b.TP_KQ_PH_ID
+    AND a.TRANG_THAI      = '02'
+    AND TRUNC(a.NGAY_PH) >= TRUNC(to_date($P{pTuNgay},'dd/MM/yyyy'))
+    AND TRUNC(a.NGAY_PH)  <= TRUNC(to_date($P{pDenNgay},'dd/MM/yyyy'))
+    UNION ALL
+    SELECT bl.KY_HAN,
+      bl.KHOI_LUONG,
+      bl.LAI_SUAT
+    FROM TP_KQPH_BAN_LE bl
+    WHERE bl.TRANG_THAI    = '02'
+    AND TRUNC(bl.NGAY_PH) >= TRUNC(to_date($P{pTuNgay},'dd/MM/yyyy'))
+    AND TRUNC(bl.NGAY_PH)  <= TRUNC(to_date($P{pDenNgay},'dd/MM/yyyy'))
+    )
+  GROUP BY ky_han
+  )bc
+INNER JOIN TP_DM_KY_HAN kh
+ON bc.KY_HAN = kh.GUID
+LEFT JOIN
+  (SELECT ky_han,
+    SUM(luy_ke) luy_ke
+  FROM
+    (SELECT KY_HAN,
+      TONG_KL_TRUNG_THAU luy_ke
+    FROM TP_KQPH ph
+    WHERE TRANG_THAI    = '02'
+    AND TRUNC(NGAY_PH) >= TRUNC(sysdate, 'YEAR')
+    AND TRUNC(NGAY_PH)  <= TRUNC(to_date($P{pDenNgay},'dd/MM/yyyy'))
+    UNION ALL
+    SELECT bl.KY_HAN,
+      bl.KHOI_LUONG luy_ke
+    FROM TP_KQPH_BAN_LE bl
+    WHERE TRANG_THAI       = '02'
+    AND TRUNC(bl.NGAY_PH) >= TRUNC(sysdate, 'YEAR')
+    AND TRUNC(bl.NGAY_PH)  <= TRUNC(to_date($P{pDenNgay},'dd/MM/yyyy'))
+    )
+  GROUP BY ky_han
+  ) lk
+ON bc.KY_HAN = lk.KY_HAN]]>
+	</queryString>
+	<field name="MO_TA" class="java.lang.String"/>
+	<field name="KY_HAN" class="java.math.BigDecimal"/>
+	<field name="KHOI_LUONG_PH" class="java.math.BigDecimal"/>
+	<field name="MIN_LS" class="java.math.BigDecimal"/>
+	<field name="MAX_LS" class="java.math.BigDecimal"/>
+	<field name="TY_TRONG" class="java.math.BigDecimal"/>
+	<field name="LUY_KE" class="java.math.BigDecimal"/>
+	<variable name="stt" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{stt}.intValue() + 1]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sum_kl_ph" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{KHOI_LUONG_PH}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="sum_luy_ke" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{LUY_KE}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="209" height="20" uuid="6f86e68e-714d-4ebc-a71e-6aa8a13c9b08"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[CỤC QUẢN LÝ NGÂN QUỸ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="209" height="20" uuid="7cf5bb2f-b7cb-4a0a-adc0-b9a7fecb279f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KHO BẠC NHÀ NƯỚC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="0" width="176" height="40" uuid="8a457ba3-74e3-4592-840e-133094490e1b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isItalic="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Hà nội, ngày … tháng … năm ...]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="52" width="541" height="22" uuid="f9949055-ddbd-4f0b-b520-3f4cdfe5e173"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[BÁO CÁO TÌNH HÌNH PHÁT HÀNH, THANH TOÁN TPCP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="74" width="541" height="22" uuid="9b4ad752-c715-4d66-8cb1-f26f9f99fbf5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="76" width="541" height="20" uuid="e1935381-32b0-439c-a65b-1d57f026a514"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($P{pTuNgay}!=null && $P{pDenNgay}!=null && !$P{pTuNgay}.equals("") && !$P{pDenNgay}.equals(""))?
+("(Từ ngày " + $P{pTuNgay} + " đến ngày " + $P{pDenNgay} + ")"):
+("")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="18" height="30" uuid="1de25550-98c3-4763-a518-745dc9387822"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[TT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="0" width="118" height="30" uuid="d5e79445-5900-4425-8528-74cbdf609653"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Chỉ tiêu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="0" width="144" height="30" uuid="3ed37f4d-a453-4ca5-9bbb-eb4282e58f7c"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KHỐI LƯỢNG PHÁT HÀNH, THANH TOÁN ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="122" height="30" uuid="2b09f58b-7c3b-47de-a088-a0177618e145"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[LUỸ KẾ  NĂM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="492" y="0" width="63" height="15" uuid="75ccdf89-a363-46ec-9965-3deead5a37e6"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[TỶ LỆ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="0" width="90" height="30" uuid="d000fc27-89c1-448b-9606-93e73c80f579"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[LÃI SUẤT TPCP ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="492" y="15" width="63" height="15" uuid="7d728638-5b17-4bf0-ba83-ae37eff7786d"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[%/ Tổng số ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="18" height="30" uuid="fe37ce44-34c4-42cf-af26-fbf5c55ba908"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="style1" x="18" y="30" width="118" height="30" uuid="f2166761-54cf-4497-bed1-7d8bb51ec0bf"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Phát hành TPCP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="30" width="90" height="30" uuid="d131dff3-b3ee-411b-ad87-1e1c1a57fc5f"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="30" width="144" height="30" uuid="eeea4d51-4400-4c4f-804d-f07846fbf978"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="30" width="122" height="30" uuid="2eb78430-08ab-4778-ae3c-62e2b1b0bb54"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="492" y="30" width="63" height="30" uuid="49b63c1e-07e5-447b-b159-dc2335980caa"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement style="style1" x="226" y="30" width="144" height="30" uuid="7caa8a58-133e-4a3b-a940-03f82061c6dd"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($V{sum_kl_ph})]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement style="style1" x="370" y="30" width="122" height="30" uuid="2ec1df7f-fb1e-4516-837b-8118f420a62e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($V{sum_luy_ke})]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="18" height="25" uuid="3467d5ed-cfb2-492e-b8da-ed54b99fa9fd"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="arial.ttf" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="136" y="0" width="90" height="25" uuid="f05872e0-4bbe-4a54-ba7e-78597f236085"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###0.00", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{MIN_LS}) +" --> "+ new DecimalFormat("#,###0.##00", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{MAX_LS})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="226" y="0" width="144" height="25" uuid="478f3fd0-d896-4661-a576-0aa983af9ea6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{KHOI_LUONG_PH})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="370" y="0" width="122" height="25" uuid="2662a77e-446d-4263-b563-d78774c9c7c8"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{LUY_KE})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="492" y="0" width="63" height="25" uuid="ae729907-0214-4814-aab6-5d063d10f00e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.00", DecimalFormatSymbols.getInstance(new java.util.Locale("vi", "VI"))).format($F{TY_TRONG}) + " %"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="18" y="0" width="118" height="25" uuid="e9ff477f-eeca-4932-a919-866425cdb698"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="arial.ttf" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MO_TA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="200" splitType="Stretch">
+			<staticText>
+				<reportElement x="346" y="180" width="195" height="20" uuid="9527cbe9-f2bb-48b0-b7e6-2aa044e62cec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="arial.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[CỤC QUẢN LÝ NGÂN QUỸ]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="0" width="492" height="100" uuid="e1165021-847f-4595-b3f9-0f7d8200a761"/>
+				<subreportParameter name="pTuNgay">
+					<subreportParameterExpression><![CDATA[$P{pTuNgay}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pDenNgay">
+					<subreportParameterExpression><![CDATA[$P{pDenNgay}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{subReport}]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

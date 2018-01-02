@@ -1,0 +1,327 @@
+package com.seatech.tp.ttindthau.action;
+
+import com.seatech.framework.AppConstants;
+import com.seatech.framework.common.jsp.PagingBean;
+import com.seatech.framework.exception.TPCPException;
+import com.seatech.framework.strustx.AppAction;
+import com.seatech.framework.tbao.ThongBaoTPCP;
+import com.seatech.framework.utils.StringUtil;
+import com.seatech.tp.dmkyhan.action.DMKyHanDelegate;
+import com.seatech.tp.dmkyhan.vo.DMKyHanVO;
+import com.seatech.tp.kqphathanh.action.QLyKQPhatHanhDelegate;
+import com.seatech.tp.kqphathanh.vo.QLyKQPhatHanhCTiet_TpcpVO;
+import com.seatech.tp.kqphathanh.vo.QLyKQPhatHanhVO;
+import com.seatech.tp.thamso.ThamSoHThongDAO;
+import com.seatech.tp.ttindthau.form.ThongTinDauThauForm;
+import com.seatech.tp.ttindthau.vo.ThongBaoVO;
+import com.seatech.tp.ttindthau.vo.ThongTinDauThauVO;
+
+import com.sun.org.apache.xpath.internal.axes.HasPositionalPredChecker;
+import com.sun.xml.internal.org.jvnet.mimepull.MIMEMessage;
+
+import java.sql.Connection;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+
+import java.util.Map;
+import java.util.Properties;
+
+import javax.jms.Session;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+public class QLyCongBoTTinDauThauAction extends AppAction {
+    private static String SUCCESS = "success";
+    private static String FAILURE = "failure";
+
+    public ActionForward list(ActionMapping mapping, ActionForm form,
+                              HttpServletRequest request,
+                              HttpServletResponse response) throws Exception {
+        try {
+            ThongTinDauThauForm f = (ThongTinDauThauForm)form;
+            f.reset(mapping, request);
+            
+        } catch (Exception e) {
+            throw e;
+        }
+      return search(mapping, form, request, response);
+    }
+
+    public ActionForward search(ActionMapping mapping, ActionForm form,
+                                HttpServletRequest request,
+                                HttpServletResponse response) throws Exception {
+        //check quyen
+
+        Connection conn = null;
+        try {
+
+            conn = getConnection(request);
+            ThongTinDauThauForm f = (ThongTinDauThauForm)form;
+            int phantrang = (AppConstants.APP_NUMBER_ROW_ON_PAGE);
+            // khai bao bien phan trang.
+            String page = f.getPageNumber();
+            if (page == null)
+                page = "1";
+            Integer currentPage = new Integer(page);
+            Integer numberRowOnPage = phantrang;
+            Integer totalCount[] = new Integer[1];
+            ThongTinDauThauVO vo = new ThongTinDauThauVO();
+            BeanUtils.copyProperties(vo, f);
+            vo.setTrang_thai("3");
+            QLyTTinDauThauDelegate delegate = new QLyTTinDauThauDelegate(conn);
+            List listTTDT = null;
+            listTTDT =
+                    (List)delegate.getListTTDTPaging(vo, currentPage, numberRowOnPage,
+                                                     totalCount);
+            PagingBean pagingBean = new PagingBean();
+            pagingBean.setCurrentPage(currentPage);
+            pagingBean.setNumberOfRow((totalCount[0] == null) ? 0 :
+                                      totalCount[0].intValue());
+            pagingBean.setRowOnPage(numberRowOnPage);
+            request.setAttribute("PAGE_KEY", pagingBean);
+            request.setAttribute("lstTTDT", listTTDT);
+        } catch (Exception e) {
+            throw e;
+
+        } finally {
+            close(conn);
+        }
+        return mapping.findForward(SUCCESS);
+    }
+
+    public ActionForward view(ActionMapping mapping, ActionForm form,
+                              HttpServletRequest request,
+                              HttpServletResponse response) throws Exception {
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            String guid = request.getParameter("longid").trim();
+            //check xem TPCP tồn tại?
+            QLyTTinDauThauDelegate delegate = new QLyTTinDauThauDelegate(conn);
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("GUID", guid);
+            ThongTinDauThauVO voDThau = delegate.getTTDTObject(map);
+            if (voDThau == null) {
+                saveMessage(request,
+                            new TPCPException("ttindthau.list.norecord"));
+                return mapping.findForward(FAILURE);
+            }
+            ThongTinDauThauForm f = (ThongTinDauThauForm)form;
+            ThongTinDauThauVO vo=null;
+            if(voDThau.getDot_bo_sung()!=null){
+              HashMap<String, Object> map2 = new HashMap<String, Object>();
+              map2.put("dot_dau_thau", voDThau.getDot_bo_sung());
+              vo = delegate.getTTDTObject(map2);
+            }
+            if (vo == null) {
+                f.setCheckBoSung("landau");
+                
+            } else {
+                QLyKQPhatHanhCTiet_TpcpVO keHoachPhatHanhVo =
+                    new QLyKQPhatHanhCTiet_TpcpVO();
+                QLyKQPhatHanhDelegate keHoachPhatHanhDelegate =
+                    new QLyKQPhatHanhDelegate(conn);
+
+                keHoachPhatHanhVo =
+                        keHoachPhatHanhDelegate.getKQPH_CTIET_TPCP(vo.getDot_bo_sung());
+                if (keHoachPhatHanhVo != null) {
+                    voDThau.setLs_danh_nghia(keHoachPhatHanhVo.getLs_danh_nghia());
+                }
+                vo.setKhoi_luong_tp(StringUtil.convertNumberToString(vo.getKhoi_luong_tp(), "VND"));
+                request.setAttribute("ThongTinDotDTCu", vo);
+                f.setCheckBoSung("bosung");
+                
+            }
+            if("1".equals(voDThau.getKy_tra_lai())){
+              String ngay_tt_lai_1= voDThau.getNgay_tt_lai_1().substring(0, 5);
+              request.setAttribute("ngay_tt_lai_1", ngay_tt_lai_1);
+              String nam_ph= voDThau.getNgay_tt_lai_1().substring(6,10);
+              request.setAttribute("namph", nam_ph);
+              
+            }else if("2".equals(voDThau.getKy_tra_lai())){
+              String nam_ph= voDThau.getNgay_tt_lai_1().substring(6,10);
+              request.setAttribute("namph", nam_ph);
+              String ngay_tt_lai_1= voDThau.getNgay_tt_lai_1().substring(0, 5);
+              request.setAttribute("ngay_tt_lai_1", ngay_tt_lai_1);
+              String ngay_tt_lai_2= voDThau.getNgay_tt_lai_2().substring(0, 5);
+              request.setAttribute("ngay_tt_lai_2", ngay_tt_lai_2);
+            }
+            
+            BeanUtils.copyProperties(f, voDThau);
+            f.setLs_danh_nghia(StringUtil.convertNumberToString(f.getLs_danh_nghia(),"VND"));
+            f.setKhoi_luong_tp(StringUtil.convertNumberToString(f.getKhoi_luong_tp(), "VND"));
+            f.setMenh_gia(StringUtil.convertNumberToString(f.getMenh_gia(), "VND"));
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            close(conn);
+        }
+        return mapping.findForward(SUCCESS);
+
+    }
+
+    public ActionForward add(ActionMapping mapping, ActionForm form,
+                             HttpServletRequest request,
+                             HttpServletResponse response) throws Exception {
+        Connection conn = null;
+        String errMess = "";
+        try {
+            ThongTinDauThauForm f = (ThongTinDauThauForm)form;
+//            HttpSession session = request.getSession();
+//            f = (ThongTinDauThauForm)session.getAttribute("voThongTinDT");
+
+            ThongTinDauThauVO vo = new ThongTinDauThauVO();
+            BeanUtils.copyProperties(vo, f);
+            String text = request.getParameter("valuetext");
+            f.setNoi_dung_mail(text);
+            HttpSession session = request.getSession();
+            if (session.getAttribute("voThongTinDT")== null) {
+              BeanUtils.copyProperties(vo, f);
+            } else {
+              vo =(ThongTinDauThauVO)session.getAttribute("voThongTinDT");
+              session.removeAttribute("voThongTinDT");
+              vo.setSo_tbao_goi_thau("");
+              vo.setNoi_dung_mail(f.getNoi_dung_mail());
+              vo.setIsAddmore("");
+              String ky_han = (String)session.getAttribute("KY_HAN");
+              session.removeAttribute("KY_HAN");
+              vo.setKy_han(ky_han);
+//              String tong_kl = vo.getKhoi_luong_tp().replace(".", "");
+//              String tong_kl_them= vo.getKhoi_luong_them().replace(".", "");
+//              long tong= Long.valueOf(tong_kl).longValue()+Long.valueOf(tong_kl_them).longValue();
+//                String s=String.valueOf(tong); 
+//                vo.setKhoi_luong_tp(s);
+                
+              }
+            conn = getConnection();
+            //Update trang thai thong tin dau thau
+            QLyTTinDauThauDelegate delegate = new QLyTTinDauThauDelegate(conn);
+            long idAdd = delegate.update(vo);
+            
+            ThongBaoTPCP abc = new ThongBaoTPCP();
+            abc.setConn(conn);
+            Collection tsoHeThong =
+                new ThamSoHThongDAO(conn).getThamSoList(null, null);
+//            String tBao =
+//                "THÔNG BÁO PHÁT HÀNH TRÁI PHIẾU CHÍNH PHỦ ĐỢT 92 NĂM 2017";
+            String tBao="";
+            String tenTBao = "";
+            abc.sendThongBao("hangntt@seatechit.com.vn", f.getNoi_dung_mail(),
+                             tsoHeThong, tBao, tenTBao);
+            byte tbPDF [] = new byte[1];
+            abc.saveTBao(vo.getGuid(), vo.getSo_tbao_goi_thau(), tbPDF, vo.getNoi_dung_mail(), "hangntt@seatechit.com.vn" );
+          if (idAdd != 0) {
+            errMess = "ttindthau.cong_bo_suss";
+          } 
+          saveMessage(request, new TPCPException(errMess));
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            close(conn);
+        }
+      return mapping.findForward(SUCCESS);
+    }
+    
+    public ActionForward printAction(ActionMapping mapping, ActionForm form,
+                            HttpServletRequest request,
+                            HttpServletResponse response) throws Exception {
+      Connection conn = null;
+      try {
+          conn = getConnection();
+          String guid = request.getParameter("longid").trim();
+          QLyTTinDauThauDelegate delegate= new QLyTTinDauThauDelegate(conn);
+          ThongBaoVO vo= new ThongBaoVO();
+          Map<String,Object> map= new HashMap();
+          map.put("ID_DAU_THAU",guid);
+          vo= delegate.getObject(map);
+          request.setAttribute("voThongBao", vo);
+        } catch (Exception e) {
+          throw e;
+      } finally {
+          close(conn);
+      }
+      return mapping.findForward(SUCCESS);
+
+  }
+    public QLyCongBoTTinDauThauAction() {
+        super();
+    }
+    
+  public ActionForward executeAction(ActionMapping mapping, ActionForm form,
+                            HttpServletRequest request,
+                            HttpServletResponse response) throws Exception {
+      Connection conn = null;
+      try {
+          conn = getConnection();
+ 
+      
+          ThongTinDauThauForm f = (ThongTinDauThauForm)form;
+          ThongTinDauThauVO vo = new ThongTinDauThauVO();
+          DMKyHanDelegate delegate = new DMKyHanDelegate(conn);
+          HttpSession session = request.getSession();
+          Map<String,Object> map = new HashMap();
+          session.setAttribute("KY_HAN", f.getKy_han());
+          map.put("GUID", f.getKy_han());
+          DMKyHanVO vo1= delegate.getDMKyHanObject(map);
+          f.setKy_han(vo1.getMo_ta());
+          String ls= f.getLs_danh_nghia().replace(",",".");
+          f.setLs_danh_nghia(StringUtil.convertNumberToString(ls,"VND"));
+          BeanUtils.copyProperties(vo, f);
+        if("1".equals(vo.getKy_tra_lai())){
+          String ngay_tt_lai_1= vo.getNgay_tt_lai_1().substring(0, 5);
+          request.setAttribute("ngay_tt_lai_1", ngay_tt_lai_1);
+          String nam_ph= vo.getNgay_tt_lai_1().substring(6,10);
+          request.setAttribute("namph", nam_ph);
+        }else if("2".equals(vo.getKy_tra_lai())){
+          String nam_ph= vo.getNgay_tt_lai_1().substring(6,10);
+          request.setAttribute("namph", nam_ph);
+          String ngay_tt_lai_1= vo.getNgay_tt_lai_1().substring(0, 5);
+          request.setAttribute("ngay_tt_lai_1", ngay_tt_lai_1);
+          String ngay_tt_lai_2= vo.getNgay_tt_lai_2().substring(0, 5);
+          request.setAttribute("ngay_tt_lai_2", ngay_tt_lai_2);
+        }
+        
+          session.setAttribute("voThongTinDT", vo);
+          if( !"".equals(vo.getDot_bo_sung())){
+          
+            QLyKQPhatHanhCTiet_TpcpVO keHoachPhatHanhVo =
+                new QLyKQPhatHanhCTiet_TpcpVO();
+            QLyKQPhatHanhDelegate keHoachPhatHanhDelegate =
+                new QLyKQPhatHanhDelegate(conn);
+          
+            keHoachPhatHanhVo =
+                    keHoachPhatHanhDelegate.getKQPH_CTIET_TPCP(vo.getDot_bo_sung());
+         
+          
+       
+       //     vo.setKhoi_luong_tp(StringUtil.convertNumberToString(vo.getKhoi_luong_tp(), "VND"));
+            
+            
+            request.setAttribute("ThongTinDotDTCu", vo);
+          }else{
+      
+      
+          
+        
+          f.setKy_han(vo1.getMo_ta());
+          String guid = f.getGuid();
+          }
+      } catch (Exception e) {
+          throw e;
+      } finally {
+          close(conn);
+      }
+      return mapping.findForward(SUCCESS);
+
+  }
+}

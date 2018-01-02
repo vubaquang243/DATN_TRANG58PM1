@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="QLyTToanTienMuaForm"
+               type="com.seatech.tp.tttmua.form.QLyTToanTienMuaForm"/>
+    <form-bean name="QLyLapBangKeForm"
+               type="com.seatech.tp.tttmua.form.QLyLapBangKeForm"/>
+  </form-beans>
+  <action-mappings>
+    <!--+++++++++++++++++++++++++++++++++ <forward name="success" path="/QuanLyTPListAction.do"/> QuanLy Mã TPCP Action +++++++++++++++++++++++++++++++++-->
+    <action parameter="addExc" name="QLyTToanTienMuaForm"
+            path="/AddExeTTinTienMuaAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyTToanTienMuaAction">
+      <forward name="success" path="/AddTTinTienMuaAction.do"/>
+      <forward name="failure" path="/AddErrTTinDThauAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="add" name="QLyTToanTienMuaForm"
+            path="/AddTTinTienMuaAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyTToanTienMuaAction">
+      <forward name="success" path="/pages/tttienmua/addTTTienMua.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="addExc" name="QLyTToanTienMuaForm"
+            path="/AddExcTTinTienMuaAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyTToanTienMuaAction">
+      <forward name="success" path="/SearchTTinTienMuaAction.do"/>
+      <forward name="failure" path="/ListTTinTienMuaAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="updateExc" name="QLyTToanTienMuaForm"
+            path="/UpdateExcTTinTienMuaAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyTToanTienMuaAction">
+      <forward name="success" path="/SearchTTinTienMuaAction.do"/>
+      <forward name="failure" path="/ListTTinTienMuaAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="list" name="QLyTToanTienMuaForm"
+            path="/ListTTinTienMuaAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyTToanTienMuaAction">
+      <forward name="success" path="/pages/tttienmua/addTTTienMua.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action name="QLyTToanTienMuaForm"
+            path="/GetMaTPCPTTTMAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyTToanTienMuaAction">
+      <forward name="success" path="/pages/tttienmua/addTTTienMua.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QLyTToanTienMuaForm"
+            path="/SearchTTinTienMuaAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyTToanTienMuaAction">
+      <forward name="success" path="/pages/tttienmua/addTTTienMua.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="list" name="QLyTToanTienMuaForm"
+            path="/ListTraCuuTTinTienMuaAction" scope="request"
+            type="com.seatech.tp.tttmua.action.TraCuuTToanTienMuaAction">
+      <forward name="success" path="/pages/tttienmua/listTTinTToanTMua.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QLyTToanTienMuaForm"
+            path="/SearchTTinTMuaAction" scope="request"
+            type="com.seatech.tp.tttmua.action.TraCuuTToanTienMuaAction">
+      <forward name="success" path="/pages/tttienmua/listTTinTToanTMua.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!--Phe duyet lap bang ke-->    
+    <action parameter="list" name="QLyLapBangKeForm"
+            path="/ListPDuyetBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.PheDuyetLapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/listTTinBKePduyet.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QLyLapBangKeForm"
+            path="/SearchPDuyetBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.PheDuyetLapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/listTTinBKePduyet.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="view" name="QLyLapBangKeForm"
+            path="/ViewPDuyetBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.PheDuyetLapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/addLapBangKePduyet.jsp"/>
+      <forward name="failure" path="/ListQLyBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="pheduyet" name="QLyLapBangKeForm"
+            path="/PDuyetBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.PheDuyetLapBangKeAction">
+      <forward name="success" path="/ListPDuyetBangKeAction.do"/>
+      <forward name="failure" path="/ListPDuyetBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="tuchoi" name="QLyLapBangKeForm"
+            path="/TuChoiPDuyetBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.PheDuyetLapBangKeAction">
+      <forward name="success" path="/ListPDuyetBangKeAction.do"/>
+      <forward name="failure" path="/ListPDuyetBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <!--Quan ly bang ke chuyen tien -->
+    <action parameter="list" name="QLyLapBangKeForm"
+            path="/ListQLyBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyLapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/listTTinBKe.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QLyLapBangKeForm"
+            path="/SearchQLyBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyLapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/listTTinBKe.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="view" name="QLyLapBangKeForm"
+            path="/ViewLapBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyLapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/addLapBangKe.jsp"/>
+      <forward name="failure" path="/ListQLyBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+    <!--In bang ke -->
+    <action parameter="print" name="QLyLapBangKeForm"
+            path="/PrintBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyLapBangKeAction">
+      <forward name="failure" path="/pages/tttienmua/addLapBangKe.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+    <action parameter="update" name="QLyLapBangKeForm"
+            path="/UpdateLapBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyLapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/addLapBangKe.jsp"/>
+      <forward name="failure" path="/ListQLyBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="updateExc" name="QLyLapBangKeForm"
+            path="/UpdateExcLapBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyLapBangKeAction">
+      <forward name="success" path="/ListQLyBangKeAction.do"/>
+      <forward name="failure" path="/ListQLyBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="trinh" name="QLyLapBangKeForm"
+            path="/TrinhPDLapBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyLapBangKeAction">
+      <forward name="success" path="/ListQLyBangKeAction.do"/>
+      <forward name="failure" path="/ListQLyBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="delete" name="QLyLapBangKeForm"
+            path="/DeleteLapBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.QLyLapBangKeAction">
+      <forward name="success" path="/ListQLyBangKeAction.do"/>
+      <forward name="failure" path="/ListQLyBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="list" name="QLyLapBangKeForm"
+            path="/ListLapBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.LapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/listLapBangKe.jsp"/>
+      <forward name="failure" path="/ListLapBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action name="QLyLapBangKeForm"
+            path="/GetMaTPCPAction" scope="request"
+            type="com.seatech.tp.tttmua.action.LapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/listLapBangKe.jsp"/>
+      <forward name="failure" path="/ListLapBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QLyLapBangKeForm"
+            path="/SearchLapBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.LapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/listLapBangKe.jsp"/>
+      <forward name="failure" path="/ListLapBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="add" name="QLyLapBangKeForm"
+            path="/PreLapBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.LapBangKeAction">
+      <forward name="success" path="/pages/tttienmua/addLapBangKe.jsp"/>
+      <forward name="failure" path="/ListLapBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="addExc" name="QLyLapBangKeForm"
+            path="/AddExeLapBangKeAction" scope="request"
+            type="com.seatech.tp.tttmua.action.LapBangKeAction">
+      <forward name="success" path="/ListQLyBangKeAction.do"/>
+      <forward name="failure" path="/ListLapBangKeAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    
+  </action-mappings>
+  <controller nocache="true"
+              processorClass="org.apache.struts.action.RequestProcessor"
+              contentType="text/html;charset=UTF-8" locale="false"/>
+</struts-config>

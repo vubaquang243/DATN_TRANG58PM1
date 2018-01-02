@@ -1,0 +1,536 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.seatech.framework.AppKeys"%>
+<%@ taglib uri="/WEB-INF/tlds/fmt.tld" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/struts-html.tld" prefix="html"%>
+<%@ taglib uri="/WEB-INF/tlds/struts-bean.tld" prefix="bean"%>
+<%@ taglib uri="/WEB-INF/tlds/struts-logic.tld" prefix="logic"%>
+<%@ include file="/includes/tpcp_header.inc"%>
+<%@ page import="com.seatech.framework.common.jsp.PagingBean"%>
+<%@ page import="com.seatech.framework.AppConstants"%>
+<fmt:setBundle basename="com.seatech.tp.resource.TTLaiGocVndResource"/>
+<%@ page import="com.seatech.framework.utils.StringUtil"%>
+<%@ page import="com.seatech.tp.dmdonvitt.vo.DMDonViTTVo"%>
+<script src="<%=AppConstants.NNT_APP_CONTEXT_ROOT%>/styles/js/MoneyConvert_vn.js"></script>
+<% 
+  List<DMDonViTTVo> lstDviTT = (List<DMDonViTTVo>)request.getAttribute("listDonViTT");   
+%>
+<script type="text/javascript">
+  jQuery(document).ready(function () {
+  });
+
+  function goPage(page) {
+      var f = document.forms[0];
+      f.pageNumber.value = page;
+      f.submit();
+  }
+
+  function parseDate(str) {
+      var mdy = str.split("/");
+      var m = toNumber(mdy[1]) -1;
+      return new Date(mdy[2], m, mdy[0]);
+  }
+
+  function validateForm() {
+      var ngay_thanh_toan_tu_ngay = $("#ngay_den_han_tt").val();
+      var ngay_thanh_toan_den_ngay = $("#ngay_chuyen").val();
+      var can_cu = $("#can_cu").val()
+      var dvi_nhan = $("#dvi_nhan").val();
+      if (dvi_nhan == null || dvi_nhan == "") {
+          alert('Vui lòng chọn đơn vị nhận tiền !');
+          $("#dvi_nhan").focus();
+          return false;
+      }
+      if (can_cu == null || can_cu == "") {
+          alert('Vui lòng nhập nội dung Căn cứ !');
+          $("#can_cu").focus();
+          return false;
+      }
+      if (ngay_thanh_toan_tu_ngay == null || ngay_thanh_toan_tu_ngay == "") {
+          alert('Vui lòng nhập đến hạn thanh toán !');
+          $("#ngay_den_han_tt").focus();
+          return false;
+      }
+      if (ngay_thanh_toan_den_ngay == null || ngay_thanh_toan_den_ngay == "") {
+          alert('Vui lòng nhập Ngày chuyển tiền!');
+          $("#ngay_chuyen").focus();
+          return false;
+      }
+      if ((ngay_thanh_toan_tu_ngay != null && ngay_thanh_toan_tu_ngay != "") && (ngay_thanh_toan_den_ngay != null && ngay_thanh_toan_den_ngay != "")) {
+          var startDate = parseDate(ngay_thanh_toan_tu_ngay).getTime();
+          var endDate = parseDate(ngay_thanh_toan_den_ngay).getTime();
+          if (startDate > endDate) {
+              alert('Ngày chuyển tiền phải lớn hơn hoặc bằng Ngày đến hạn thanh toán!');
+              $("#ngay_chuyen").focus();
+              return false;
+          }
+      }
+      return true;
+  }
+
+  function check(type) {
+      var f = document.forms[0];
+      f.target = '';
+      if (type == 'ghi') {
+          f.action = 'UpdateLenhTraNoUsdAction.do';
+          f.submit();
+      }else if (type == 'ghivstrinh') {          
+          if (validateForm()) {
+              $("#trang_thai").val('01');
+              f.action = 'UpdateLenhTraNoUsdAction.do';
+              f.submit();
+          }          
+      }else if (type == 'print') {
+          if (validateForm()) {
+              f.action = 'PrintLenhChiTraNoUsdAction.do';
+              var params = ['scrollbars=1,height=' + (screen.height - 100), 'width=' + screen.width].join(',');
+              newDialog = window.open('', '_form', params);
+              f.target = '_form';
+              f.submit();
+          }
+      }else if (type == 'close') {
+          f.action = 'ListLenhTraNoUsdAction.do';
+          f.submit();
+      }
+  }
+
+  function view(id_lenh) {
+      var f = document.forms[0];
+      f.action = 'SearchLenhTraNoAction.do'
+      f.submit();
+  }
+  function changeDVTT(dvtt){
+     $.ajax( {
+          type : "post", url : "GetAjaxDonViNhanAction.do", data :  {
+              longid : dvtt
+          },
+          async : true, cache : false, success : function (data) {
+              var objArr = JSON.parse(data);
+              if(objArr!=null && objArr.length > 0){
+                $('#so_tk_nhan').html('');
+                  $('#so_tk_nhan').append('<option value="">Vui lòng chọn<\/option>');
+                  for(var i =0; i < objArr.length;i++){                    
+                      $('#so_tk_nhan').append('<option value="'+objArr[i].so_tk+'">'+objArr[i].so_tk+'<\/option>');
+                  }  
+                  if(dvtt!=""){
+                    $("#so_tk_nhan").val(objArr[0].so_tk);
+                    $("#nh_nhan").val(objArr[0].ten_nh);
+                  }else $("#nh_nhan").val("");
+              }
+              $('.selectpicker').selectpicker('refresh');
+          }
+      });
+  }
+  function changeSTK(so_tk_nhan){
+      var ma_dvi_nhan_tien = document.getElementById("dvi_nhan").value;     
+     $.ajax( {
+          type : "post", url : "GetAjaxDonViNhanAction.do", data :  {
+              longid : ma_dvi_nhan_tien, so_tk_nhan:so_tk_nhan
+          },
+          async : true, cache : false, success : function (data) {
+              var objArr = JSON.parse(data);
+              if(so_tk_nhan!=undefined && so_tk_nhan!=''){
+              if(objArr!=null && objArr.length > 0){               
+                  $("#nh_nhan").val(objArr[0].ten_nh);
+              }    
+              }else $("#nh_nhan").val("");
+              $('.selectpicker').selectpicker('refresh');
+          }
+      });
+  }
+  $(function () {
+      $("#so_lenh").focus();
+      $("#ngay_chuyen").datepicker( {
+          dateFormat : "dd/mm/yy"
+      });
+      $("#ngay_den_han_tt").datepicker( {
+          dateFormat : "dd/mm/yy"
+      });      
+      var tong_tien ='<bean:write name="LenhTraNoForm" property="tong_tien"/>';
+      $("#tong_tien_chu").val(toEnglishCash(toNumber(tong_tien)));
+      var tong_tien_usd ='<bean:write name="LenhTraNoForm" property="tong_tien_usd"/>';
+      $("#tong_tien_chu_usd").val(toEnglishCashUSD(toNumber(tong_tien_usd)));
+      document.getElementById("dvi_nhan").value = '<bean:write name="LenhTraNoForm" property="dvi_nhan"/>';
+      $('.selectpicker').selectpicker('refresh');
+      changeDVTT('<bean:write name="LenhTraNoForm" property="dvi_nhan"/>');
+      document.getElementById("so_tk_nhan").value = '<bean:write name="LenhTraNoForm" property="so_tk_nhan"/>';
+      $('.selectpicker').selectpicker('refresh');
+      changeSTK('<bean:write name="LenhTraNoForm" property="so_tk_nhan"/>');
+      $('.selectpicker').selectpicker('refresh');
+  });
+</script>
+<div class="app_error">
+  <html:errors/>
+</div>
+<html:form action="/ListLenhTraNoAction.do" method="post">
+  <div class="panel-heading border-bottom">
+    <h1 class="panel-title">
+      <logic:notEqual value="VND" name="LenhTraNoForm" property="loai_tien">
+      <strong>Ho&agrave;n thiện lệnh chi trả nợ trong nước bằng ngoại tệ</strong>
+      </logic:notEqual>
+      <logic:equal value="VND" name="LenhTraNoForm" property="loai_tien">
+      <strong>Ho&agrave;n thiện lệnh chi trả nợ trong nước bằng VND</strong>
+      </logic:equal>
+    </h1>
+  </div>
+  <%boolean alowEdit = "true".equals((String)request.getAttribute("alowEdit"))?true:false;%>
+  <div class="app_error">
+    <logic:messagesPresent message="true">
+      <html:messages id="message" message="true">
+        <logic:present name="message">
+          <!-- Messages <bean:write name='message' filter='false'/> -->
+          <div class="messages">
+            <fmt:message key="<%=message%>"/>
+          </div>
+        </logic:present>
+      </html:messages>
+    </logic:messagesPresent>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Th&ocirc;ng tin chung</h2>
+    </div>
+    <div class="panel-body">
+      <div class="form-horizontal">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">
+                <fmt:message key="thanhtoanlaigoc.so_lenh"/>
+              </label>
+              <div class="col-sm-8">
+                <input type="hidden" name="so_lenh_cu" value='<bean:write name="LenhTraNoForm" property="so_lenh"/>'/>                
+                <html:text styleClass="form-control" onfocus="textfocus(this);"
+                           styleId="so_lenh" onblur="textlostfocus(this);"
+                           tabindex="1" property="so_lenh" readonly='<%=alowEdit%>'/>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">
+                <fmt:message key="thanhtoanlaigoc.dvi_nhan"/>
+              </label>
+              <div class="col-sm-8">
+                <logic:equal value="false" name="alowEdit">
+                <html:select property="dvi_nhan" styleId="dvi_nhan" onchange="changeDVTT(this.value)" onfocus="textfocus(this);"
+                           onblur="textlostfocus(this);"
+                             styleClass="form-control selectpicker" tabindex="3"
+                             onkeydown="if(event.keyCode==13) event.keyCode=9;">
+                  <html:option value="">Vui l&ograve;ng chọn</html:option>
+                  <logic:notEmpty name="listDonViTT">
+                    <html:optionsCollection name="listDonViTT" value="ma"
+                                            label="ten"/>
+                  </logic:notEmpty>
+                </html:select>
+                </logic:equal>
+                <logic:equal value="true" name="alowEdit">
+                  <html:hidden property="dvi_nhan"/>
+                <html:select property="dvi_nhan" styleId="dvi_nhan" onchange="changeDVTT(this.value)" onfocus="textfocus(this);"
+                           onblur="textlostfocus(this);"
+                             styleClass="form-control selectpicker" tabindex="3" disabled="true"
+                             onkeydown="if(event.keyCode==13) event.keyCode=9;">
+                  <html:option value="">Vui l&ograve;ng chọn</html:option>
+                  <logic:notEmpty name="listDonViTT">
+                    <html:optionsCollection name="listDonViTT" value="ma"
+                                            label="ten"/>
+                  </logic:notEmpty>
+                </html:select>
+                </logic:equal>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">
+                <fmt:message key="thanhtoanlaigoc.nam_ns"/> 
+              </label>
+              <div class="col-sm-8">
+                <html:text styleClass="form-control " onfocus="textfocus(this);"
+                           styleId="nam_ns" onblur="textlostfocus(this);" 
+                           tabindex="3" property="nam_ns" readonly='<%=alowEdit%>'/>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">T&agrave;i khoản
+                                                                số</label>
+              <div class="col-sm-8">
+              <logic:equal value="false" name="alowEdit">
+              <html:select styleClass="form-control selectpicker"
+                             onkeydown="if(event.keyCode==13) event.keyCode=9;"
+                             onfocus="textfocus(this);"
+                             onblur="textlostfocus(this);" tabindex="2"
+                             styleId="so_tk_nhan" onchange="changeSTK(this.value);" property="so_tk_nhan">  
+                             <html:option value="">Vui l&ograve;ng chọn</html:option>
+                </html:select>
+                </logic:equal>
+                <logic:equal value="true" name="alowEdit">
+                  <html:hidden property="so_tk_nhan"/>
+                  <html:select styleClass="form-control selectpicker"
+                                 onkeydown="if(event.keyCode==13) event.keyCode=9;"
+                                 onfocus="textfocus(this);" disabled="true"
+                                 onblur="textlostfocus(this);" tabindex="2"
+                                 styleId="so_tk_nhan" onchange="changeSTK(this.value);" property="so_tk_nhan">  
+                                 <html:option value="">Vui l&ograve;ng chọn</html:option>
+                    </html:select>
+                </logic:equal>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">Căn cứ</label>
+              <div class="col-sm-8">
+                <html:textarea styleClass="form-control"
+                               onfocus="textfocus(this);"
+                               onblur="textlostfocus(this);" tabindex="5"
+                               styleId="can_cu" property="can_cu" readonly='<%=alowEdit%>'/>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">Nơi mở
+                                                                t&agrave;i khoản</label>
+              <div class="col-sm-8">
+                <html:textarea styleClass="form-control"
+                               onkeyup="doFormat(event)"
+                               onfocus="textfocus(this);"
+                               onblur="textlostfocus(this);" tabindex="6"
+                               styleId="nh_nhan" property="nh_nhan" readonly='<%=alowEdit%>'/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">Ng&agrave;y đến
+                                                                hạn thanh to&aacute;n</label>
+              <div class="col-sm-8">
+                <logic:equal value="false" name="alowEdit">
+                  <div class="input-group date">
+                    <html:text styleClass="form-control" onkeyup="doFormat(event)"
+                               onfocus="textfocus(this);"
+                               onblur="textlostfocus(this);" tabindex="8"
+                               styleId="ngay_den_han_tt" property="ngay_den_han_tt"
+                               maxlength="10"/>
+                     
+                    <span class="input-group-addon"> 
+                      <span class="glyphicon glyphicon-calendar"></span>
+                       </span>
+                  </div>
+                </logic:equal>
+                <logic:equal value="true" name="alowEdit">
+                <html:text styleClass="form-control " 
+                           tabindex="7" property="ngay_den_han_tt" styleId="ngay_den_han_tt" readonly="true"/>
+                </logic:equal>                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">Ng&agrave;y
+                                                                chuyển tiền</label>
+              <div class="col-sm-8">
+                <logic:equal value="false" name="alowEdit">
+                  <div class="input-group date">
+                    <html:text styleClass="form-control" onkeyup="doFormat(event)"
+                               onfocus="textfocus(this);"
+                               onblur="textlostfocus(this);" tabindex="8"
+                               styleId="ngay_chuyen" property="ngay_chuyen"
+                               maxlength="10"/>                     
+                    <span class="input-group-addon"> 
+                      <span class="glyphicon glyphicon-calendar"></span>
+                       </span>
+                  </div>
+                </logic:equal>
+                <logic:equal value="true" name="alowEdit">
+                <html:text styleClass="form-control " 
+                           tabindex="8" property="ngay_chuyen" styleId="ngay_chuyen" readonly="true"/>
+                </logic:equal>
+              </div>
+            </div>
+          </div>
+        </div>
+        <logic:notEqual value="VND" name="LenhTraNoForm" property="loai_tien">      
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">Loại ngoại tệ</label>
+              <div class="col-sm-8">
+                <html:text styleClass="form-control"
+                               onkeyup="doFormat(event)"
+                               onfocus="textfocus(this);"
+                               onblur="textlostfocus(this);" tabindex="9" readonly="true"
+                               styleId="loai_tien" property="loai_tien"/>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">Tỷ giá</label>
+              <div class="col-sm-8">
+                <logic:present name="LenhTraNoForm"
+                             property="ty_gia">
+                <bean:define id="ty_gia" name="LenhTraNoForm"
+                             property="ty_gia"/>
+                 
+                <%String gia=StringUtil.convertNumberToString(ty_gia.toString(),"VND");%>
+                <html:text styleClass="form-control" readonly="true"
+                               onfocus="textfocus(this);" value="<%=gia%>"
+                               onblur="textlostfocus(this);" tabindex="9"
+                               styleId="ty_gia" property="ty_gia"/>
+                </logic:present>
+              </div>
+            </div>
+          </div>
+          </div>
+          </logic:notEqual>
+          <logic:equal value="03" name="LenhTraNoForm" property="trang_thai">    
+          <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="hoten" class="col-sm-4 control-label">Lý do từ chối</label>
+              <div class="col-sm-8">
+                <html:textarea styleClass="form-control"
+                               onkeyup="doFormat(event)"
+                               onfocus="textfocus(this);"
+                               onblur="textlostfocus(this);" tabindex="9"
+                               styleId="ly_do_tu_choi" property="ly_do_tu_choi" readonly="true"/>
+              </div>
+            </div>
+          </div>
+          </div>
+          </logic:equal>
+      </div>
+    </div>
+  </div>
+  <html:hidden styleId="so_tien_ngte" property="so_tien_ngte"/>
+  <html:hidden styleId="loai_thanh_toan" property="loai_thanh_toan"/>
+  <html:hidden styleId="tong_tien_chu" property="tong_tien_chu" value=""/>
+  <html:hidden styleId="tong_tien_chu_usd" property="tong_tien_chu_usd" value=""/>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Th&ocirc;ng tin chi tiết</h2>
+    </div>
+    <%-- Hiển thị list KTV--%>
+    <table class="table table-bordered">
+      <thead>
+        <th class="center">Nội dung thanh to&aacute;n</th>
+        <th>M&atilde; NDKT</th>
+        <th>M&atilde; chương</th>
+        <th>M&atilde; ng&agrave;nh KT</th>
+        <th>M&atilde; CTMT, DA v&agrave; HTCT</th>
+        <th>M&atilde; nguồn NSNN</th>
+        <logic:notEqual value="VND" name="LenhTraNoForm" property="loai_tien">     
+        <th>Số tiền nguyên tệ</th>
+        </logic:notEqual>
+        <th>Số tiền VND <br> (đồng)</th>
+      </thead>
+       
+      <tbody>
+        <logic:empty property="list_Lenh_tra_no_ct" name="LenhTraNoForm">
+          <tr>
+            <td colspan="16" align="center">
+              <fmt:message key="thanhtoanlaigoc.list.norecord"/>
+            </td>
+          </tr>
+        </logic:empty>
+        <logic:notEmpty property="list_Lenh_tra_no_ct" name="LenhTraNoForm">
+          <logic:iterate id="objTPCP" property="list_Lenh_tra_no_ct"
+                         name="LenhTraNoForm" indexId="stt">
+            <tr class='<%=stt % 2 == 0 ? "trDanhSachChan" : "trDanhSachLe"%>' >
+              <td>
+                <bean:write name="objTPCP" property="noi_dung"/>
+              </td>
+              <td align="center">
+                <bean:write name="objTPCP" property="ndkt"/>
+              </td>
+              <td align="center">
+                <bean:write name="objTPCP" property="chuong"/>
+              </td>
+              <td align="center">
+                <bean:write name="objTPCP" property="nganh_kt"/>
+              </td>
+              <td align="center">
+                <bean:write name="objTPCP" property="ctmt"/>
+              </td>
+              <td align="center">
+                <bean:write name="objTPCP" property="nguon"/>
+              </td>
+              <logic:notEqual value="VND" name="LenhTraNoForm" property="loai_tien">  
+              <td align="right">
+                <bean:define id="so_tien_ngte" name="objTPCP"
+                             property="so_tien_ngte"/>
+                 
+                <%=StringUtil.convertNumberToString(so_tien_ngte.toString(),"VND")%>
+              </td>
+              </logic:notEqual>
+              <td align="right">
+                <bean:write name="objTPCP" property="so_tien_vnd"/>
+              </td>
+            </tr>
+          </logic:iterate>
+          <tr>
+              <td colspan="6" class="center"><b>Tổng cộng</b></td>
+              <logic:notEqual value="VND" name="LenhTraNoForm" property="loai_tien">  
+              <td align="right">
+                <bean:define id="tong_tien_usd" name="LenhTraNoForm"
+                             property="tong_tien_usd"/>
+                 
+               <b> <%=StringUtil.convertNumberToString(tong_tien_usd.toString(),"VND")%> </b>
+              </td>
+              </logic:notEqual>
+              <td class="right">
+                 
+                 
+                <b> <bean:write name="LenhTraNoForm" property="tong_tien"/> </b>
+              </td>
+          </tr>
+        </logic:notEmpty>
+      </tbody>
+       
+      <html:hidden property="pageNumber" value="1"/>
+    </table>
+    <%-- ************************************--%>
+  </div>
+  <div class="button-group center">
+    <logic:notEqual value="02" property="trang_thai" name="LenhTraNoForm">
+    <logic:notEqual value="01" property="trang_thai" name="LenhTraNoForm">
+    <button id="tracuu" type="button" onclick="check('ghi')"
+            class="btn btn-default" accesskey="g">
+      <span class="sortKey">G</span>hi 
+    </button>
+    <button id="tracuu" type="button" onclick="check('ghivstrinh')"
+            class="btn btn-default" accesskey="v">
+      Ghi <span class="sortKey">v</span>à Trình
+    </button>
+     
+    <!--<button id="tracuu" type="button" onclick="check('find')"
+            class="btn btn-default" accesskey="t">
+      <span class="sortKey">H</span>
+      ủy
+    </button>-->
+    </logic:notEqual>
+     </logic:notEqual>
+     <button type="button" onclick="check('print')" class="btn btn-default"
+              accesskey="i">
+        <span class="sortKey">I</span>n
+      </button>
+       <button type="button" onclick="check('close')" class="btn btn-default"
+              accesskey="o">
+        Th<span class="sortKey">o</span>át
+      </button>    
+  </div>
+  <html:hidden property="trang_thai" name="LenhTraNoForm" styleId="trang_thai"/>
+  <html:hidden property="loai_tien" name="LenhTraNoForm" styleId="loai_tien"/>
+  <html:hidden property="guid" name="LenhTraNoForm"/>
+</html:form>
+<%@ include file="/includes/tpcp_bottom.inc"%>

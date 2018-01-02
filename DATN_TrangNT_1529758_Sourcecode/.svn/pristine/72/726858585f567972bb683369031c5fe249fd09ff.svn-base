@@ -1,0 +1,17 @@
+BanLeTraiPhieuTw_ChiTiet.guid=ID
+BanLeTraiPhieuTw_ChiTiet.dvi_so_huu=Đơn vị sở hữu
+BanLeTraiPhieuTw_ChiTiet.so_dksh=Số đăng ký sở hữu(ĐKSH)
+BanLeTraiPhieuTw_ChiTiet.ngay_cap_dksh=Ngày cấp
+BanLeTraiPhieuTw_ChiTiet.no_cap_dksh=Nơi cấp
+BanLeTraiPhieuTw_ChiTiet.loai_hinh=Loại hình
+BanLeTraiPhieuTw_ChiTiet.quoc_tich=Quốc tịch
+BanLeTraiPhieuTw_ChiTiet.dia_chi=Địa chỉ
+BanLeTraiPhieuTw_ChiTiet.sl_dky_mua=Số lượng trái phiếu
+BanLeTraiPhieuTw_ChiTiet.kl_dky_mua=Khối lượng trái phiếu
+BanLeTraiPhieuTw_ChiTiet.so_tien_tt=Số tiền thanh toán
+BanLeTraiPhieuTw_ChiTiet.loai_tien=Loại tiền
+BanLeTraiPhieuTw_ChiTiet.hthuc_tt=Hình thức thanh toán
+BanLeTraiPhieuTw_ChiTiet.mo_ta=Mo ta
+BanLeTraiPhieuTw_ChiTiet.kqph_ban_le_id=ID bang TP_KQPH_BAN_LE
+BanLeTraiPhieuTw_ChiTiet.trang_thai_tt=Trang thai thanh toan (00: Chua TT; 01: TT 1 phan; 02: TT du)
+BanLeTraiPhieuTw_ChiTiet.so_bke=So bang ke don vi chuyen tien, tham chieu bang TP_BKE_CHUYEN_TIEN

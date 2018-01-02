@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="QuanLyTPCPForm"
+               type="com.seatech.tp.qlytp.form.QuanLyTPCPForm"/>
+  </form-beans>
+  <action-mappings>
+    <!--+++++++++++++++++++++++++++++++++ QuanLy Mã TPCP Action +++++++++++++++++++++++++++++++++-->
+    <action parameter="list" name="QuanLyTPCPForm" path="/QuanLyTPExeListAction"
+            scope="request"
+            type="com.seatech.tp.qlytp.action.QuanLyTPCPAction">
+      <forward name="success" path="/pages/qlytp/listTPCP.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="search" name="QuanLyTPCPForm" path="/SearchTPCPAction"
+            scope="request"
+            type="com.seatech.tp.qlytp.action.QuanLyTPCPAction">
+      <forward name="success" path="/pages/qlytp/listTPCP.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="executeAction" name="QuanLyTPCPForm"
+            path="/QuanLyTPListAction" scope="request"
+            type="com.seatech.tp.qlytp.action.QuanLyTPCPAction">
+      <forward name="success" path="/pages/qlytp/listTPCP.jsp"/>
+      <forward name="failure" path="/mainAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="addExc" name="QuanLyTPCPForm"
+            path="/QuanLyTPExecuteAction" scope="request"
+            type="com.seatech.tp.qlytp.action.QuanLyTPCPAction">
+      <forward name="success" path="/QuanLyTPListAction.do"/>
+      <forward name="failure" path="/QuanLyTPAddAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="add" name="QuanLyTPCPForm" path="/QuanLyTPAddAction"
+            scope="request"
+            type="com.seatech.tp.qlytp.action.QuanLyTPCPAction">
+      <forward name="success" path="/pages/qlytp/addTPCP.jsp"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="update" name="QuanLyTPCPForm"
+            path="/QuanLyTPCPUpdateAction" scope="request"
+            type="com.seatech.tp.qlytp.action.QuanLyTPCPAction">
+      <forward name="success" path="/pages/qlytp/addTPCP.jsp"/>
+      <forward name="failure" path="/QuanLyTPListAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="updateExc" name="QuanLyTPCPForm"
+            path="/QuanLyTPUpdateExecuteAction" scope="request"
+            type="com.seatech.tp.qlytp.action.QuanLyTPCPAction">
+      <forward name="success" path="/QuanLyTPListAction.do"/>
+      <forward name="failure" path="/QuanLyTPListAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+    <action parameter="delete" name="QuanLyTPCPForm"
+            path="/QuanLyTPCPDeleteAction" scope="request"
+            type="com.seatech.tp.qlytp.action.QuanLyTPCPAction">
+      <forward name="success" path="/QuanLyTPListAction.do"/>
+      <forward name="failure" path="/QuanLyTPListAction.do"/>
+      <forward name="errorQuyen" path="/pages/main/errorQuyen.jsp"/>
+    </action>
+  </action-mappings>
+  <controller nocache="true"
+              processorClass="org.apache.struts.action.RequestProcessor"
+              contentType="text/html;charset=UTF-8" locale="false"/>
+</struts-config>
